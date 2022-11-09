@@ -24,8 +24,8 @@ public class State
 
     public IEnumerable<string> GetLexemsAfterDot()
         => Situations
-            .Where(s => s.Pos != s.Rule.Right.Length)
-            .Select(s => s.Rule.Right[s.Pos]).Distinct();
+            .Where(s => !s.DotPlaceAtEnd())
+            .Select(s => s.GetLexemAfterDot()).Distinct();
 
     public override bool Equals(object? obj)
     {
