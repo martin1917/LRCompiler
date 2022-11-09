@@ -6,7 +6,7 @@ public class TreeNode
 
     public List<TreeNode?> Childs { get; }
 
-    public TreeNode(string value) : this(value, new List<TreeNode>()) { }
+    public TreeNode(string value) : this(value, new List<TreeNode?>()) { }
 
     public TreeNode(string value, List<TreeNode?> childs)
     {

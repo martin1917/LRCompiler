@@ -44,86 +44,10 @@ public class Program
         var lexems = lexer.GetLexems();
         var fsm = ParserHelpers.BuildLRTable();
 
-        var ast = GenerateAST(fsm, lexems);
+        var ast = ASTGenerator.Generate(fsm, lexems);
         Console.WriteLine();
     }
-
-    private static TreeNode GenerateAST(LRTable fsm, List<Lexem> lexems)
-    {
-        bool accept = false;
-        int i = 0;
-
-        var stack = new Stack<StackItem>();
-        stack.Push(new StackItem(0, ""));
-
-        while (!accept)
-        {
-            var stateOnTopStack = stack.Peek().StateNumber;
-            var parserOperation = fsm.Get(stateOnTopStack, lexems[i].TypeTerminal.Name);
-
-            if (parserOperation.KindOperation is KindOperation.ERROR)
-            {
-                Console.WriteLine("Ошибка во время парсинга!!!\n");
-                break;
-            }
-
-            switch (parserOperation.KindOperation)
-            {
-                case KindOperation.ACCEPT:
-                    { 
-                        accept = true;                            
-                    }
-                    break;
-
-                case KindOperation.SHIFT:
-                    {
-                        var nextStateNumber = parserOperation.Number;
-
-                        StackItem stackItem = lexems[i].IsVariableOrConst()
-                            ? new StackItem(nextStateNumber, lexems[i].TypeTerminal.Name, lexems[i].Value)
-                            : new StackItem(nextStateNumber, lexems[i].TypeTerminal.Name);
-
-                        stack.Push(stackItem);
-                        i++;
-                    }
-                    break;
-
-                case KindOperation.REDUCE:
-                    {
-                        var rule = Rule.AllRules.First(r => r.NumberRule == parserOperation.Number);
-
-                        var childs = new List<TreeNode?>();
-                        for(int k = 0; k < rule.Right.Length; k++)
-                        {
-                            StackItem item = stack.Pop();
-
-                            TreeNode child = item.TreeNode 
-                                ?? new TreeNode(
-                                    value: item.Symbol, 
-                                    childs: item.Value != null 
-                                        ? new() { new TreeNode(item.Value) } 
-                                        : new());
-
-                            childs.Insert(0, child);
-                        }
-
-                        var stateAferReducing = stack.Peek().StateNumber;
-                        var operation = fsm.Get(stateAferReducing, rule.Left);
-                        var nextStateNumber = operation.Number;
-                        stack.Push(new StackItem(nextStateNumber, rule.Left, new TreeNode(rule.Left, childs)));
-                    }
-                    break;
-            }
-        }
-
-        if (!accept)
-        {
-            throw new Exception("Ошибка парсинга");
-        }
-
-        return stack.Pop().TreeNode!;
-    }
-
+    
     private static void SaveInExcel(LRTable fsm)
     {
         var uniqueNumberStates = fsm.GetUniqueNumberStates();
@@ -179,28 +103,5 @@ public class Program
         sheet.Cells[initRow, initCol, endRow, endCol].AutoFitColumns();
 
         File.WriteAllBytes("C:\\Users\\marti\\OneDrive\\Desktop\\fsm.xlsx", package.GetAsByteArray());
-    }
-}
-
-public class StackItem
-{
-    public string Symbol { get; }
-
-    public string? Value { get; }
-
-    public int StateNumber { get; }
-
-    public TreeNode? TreeNode { get; }
-
-    public StackItem(int stateNumber, string symbol, TreeNode? treeNode = null) : this(stateNumber, symbol, null, treeNode)
-    {
-    }
-
-    public StackItem(int stateNumber, string symbol, string? value, TreeNode? treeNode = null)
-    {
-        StateNumber = stateNumber;
-        Symbol = symbol;
-        Value = value;
-        TreeNode = treeNode;
     }
 }
