@@ -4,11 +4,11 @@ public class TreeNode
 {
     public string Value { get; }
 
-    public List<TreeNode> Childs { get; }
+    public List<TreeNode?> Childs { get; }
 
     public TreeNode(string value) : this(value, new List<TreeNode>()) { }
 
-    public TreeNode(string value, List<TreeNode> childs)
+    public TreeNode(string value, List<TreeNode?> childs)
     {
         Value = value;
         Childs = childs;
