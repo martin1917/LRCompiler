@@ -1,5 +1,4 @@
 ﻿using LRv2.AST;
-using LRv2.Extentions;
 using LRv2.Parser;
 using OfficeOpenXml;
 using System.Data;
@@ -17,10 +16,27 @@ public class Program
     {
         var code = @"
             VAR 
-                x: LOGICAL;
-
+                x, y: LOGICAL;
             BEGIN
-                x = 1;
+                IF (x EQU 1) THEN
+                BEGIN
+                    y = 0;
+                    x = NOT (y AND (NOT (x OR y)));
+                END
+                ELSE
+                BEGIN
+                    READ(a, b, c);
+                    IF ((b EQU c) AND a) THEN
+                    BEGIN
+                        a = 1;
+                        x = NOT (c);
+                    END
+                    ELSE
+                    BEGIN
+                        c = 1;
+                    END
+                    WRITE(x);
+                END
             END
             ";
 
@@ -28,16 +44,17 @@ public class Program
         var lexems = lexer.GetLexems();
         var fsm = ParserHelpers.BuildLRTable();
 
-        Run(fsm, lexems);
+        var ast = GenerateAST(fsm, lexems);
+        Console.WriteLine();
     }
 
-    private static void Run(LRTable fsm, List<Lexem> lexems)
+    private static TreeNode GenerateAST(LRTable fsm, List<Lexem> lexems)
     {
         bool accept = false;
         int i = 0;
 
         var stack = new Stack<StackItem>();
-        stack.Push(new StackItem("", 0));
+        stack.Push(new StackItem(0, ""));
 
         while (!accept)
         {
@@ -61,7 +78,12 @@ public class Program
                 case KindOperation.SHIFT:
                     {
                         var nextStateNumber = parserOperation.Number;
-                        stack.Push(new StackItem(lexems[i].TypeTerminal.Name, nextStateNumber));
+
+                        StackItem stackItem = lexems[i].IsVariableOrConst()
+                            ? new StackItem(nextStateNumber, lexems[i].TypeTerminal.Name, lexems[i].Value)
+                            : new StackItem(nextStateNumber, lexems[i].TypeTerminal.Name);
+
+                        stack.Push(stackItem);
                         i++;
                     }
                     break;
@@ -73,21 +95,33 @@ public class Program
                         var childs = new List<TreeNode?>();
                         for(int k = 0; k < rule.Right.Length; k++)
                         {
-                            var item = stack.Pop();
-                            childs.Insert(0, item.TreeNode == null ? new TreeNode(item.Value) : item.TreeNode);
+                            StackItem item = stack.Pop();
+
+                            TreeNode child = item.TreeNode 
+                                ?? new TreeNode(
+                                    value: item.Symbol, 
+                                    childs: item.Value != null 
+                                        ? new() { new TreeNode(item.Value) } 
+                                        : new());
+
+                            childs.Insert(0, child);
                         }
 
                         var stateAferReducing = stack.Peek().StateNumber;
                         var operation = fsm.Get(stateAferReducing, rule.Left);
                         var nextStateNumber = operation.Number;
-                        stack.Push(new StackItem(rule.Left, nextStateNumber, new TreeNode(rule.Left, childs)));
+                        stack.Push(new StackItem(nextStateNumber, rule.Left, new TreeNode(rule.Left, childs)));
                     }
                     break;
             }
         }
 
+        if (!accept)
+        {
+            throw new Exception("Ошибка парсинга");
+        }
 
-        Console.WriteLine(accept ? "ХОРОШО\n" : "ПЛОХО\n");
+        return stack.Pop().TreeNode!;
     }
 
     private static void SaveInExcel(LRTable fsm)
@@ -150,16 +184,23 @@ public class Program
 
 public class StackItem
 {
-    public string Value { get; }
+    public string Symbol { get; }
 
-    public TreeNode? TreeNode { get; } = null;
+    public string? Value { get; }
 
     public int StateNumber { get; }
 
-    public StackItem(string value, int stateNumber, TreeNode? treeNode = null)
+    public TreeNode? TreeNode { get; }
+
+    public StackItem(int stateNumber, string symbol, TreeNode? treeNode = null) : this(stateNumber, symbol, null, treeNode)
     {
-        Value = value;
+    }
+
+    public StackItem(int stateNumber, string symbol, string? value, TreeNode? treeNode = null)
+    {
         StateNumber = stateNumber;
+        Symbol = symbol;
+        Value = value;
         TreeNode = treeNode;
     }
 }
