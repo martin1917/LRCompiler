@@ -4,6 +4,8 @@ public class Rule
 {
     public static Rule[] AllRules =
     {
+        new Rule("<S>", new string[]{ "<program>" }),
+
         new Rule("<program>", new string[]{ "<variable_declaration>", "<description_calculations>" }),
 
         new Rule("<description_calculations>", new string[]{ "begin", "<list_actions>", "end" }),

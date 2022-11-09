@@ -162,7 +162,7 @@ public static class ParserHelpers
             if (!situation.DotPlaceAtEnd())
                 continue;
 
-            if (situation.Rule.Left.StartsWith("<program>"))
+            if (situation.Rule.Left.StartsWith("<S>"))
             {
                 table.Add(state.NumberState, "eof", ParserOperation.NewAccept());
             }
