@@ -35,16 +35,16 @@ public class Rule
         new Rule("<expr>", new string[]{ "<unary_op>", "<sub_expr>" }),
         new Rule("<expr>", new string[]{ "<sub_expr>" }),
 
-        new Rule("<sub_expr>", new string[]{ "lparam", "<expr>", "rparam", "<A>" }),
-        new Rule("<sub_expr>", new string[]{ "<operand>", "<A>" }),
-        new Rule("<sub_expr>", new string[]{ "lparam", "<expr>", "rparam" }),
-        new Rule("<sub_expr>", new string[]{ "<operand>" }),
-        new Rule("<A>", new string[]{ "<bin_op>", "<sub_expr>", "<A>" }),
-        new Rule("<A>", new string[]{ "<bin_op>", "<sub_expr>" }),
-
+        //new Rule("<sub_expr>", new string[]{ "lparam", "<expr>", "rparam", "<A>" }),
+        //new Rule("<sub_expr>", new string[]{ "<operand>", "<A>" }),
         //new Rule("<sub_expr>", new string[]{ "lparam", "<expr>", "rparam" }),
         //new Rule("<sub_expr>", new string[]{ "<operand>" }),
-        //new Rule("<sub_expr>", new string[]{ "<sub_expr>", "<bin_op>", "<sub_expr>" }),
+        //new Rule("<A>", new string[]{ "<bin_op>", "<sub_expr>", "<A>" }),
+        //new Rule("<A>", new string[]{ "<bin_op>", "<sub_expr>" }),
+
+        new Rule("<sub_expr>", new string[]{ "lparam", "<expr>", "rparam" }),
+        new Rule("<sub_expr>", new string[]{ "<operand>" }),
+        new Rule("<sub_expr>", new string[]{ "<sub_expr>", "<bin_op>", "<sub_expr>" }),
 
         new Rule("<unary_op>", new string[]{ "not" }),
 

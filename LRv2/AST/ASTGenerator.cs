@@ -14,12 +14,18 @@ public class ASTGenerator
 
         while (!accept)
         {
-            var stateOnTopStack = stack.Peek().StateNumber;
-            var parserOperation = fsm.Get(stateOnTopStack, lexems[i].TypeTerminal.Name);
+            var stateOnTopStack = stack.Peek();
+            var parserOperation = fsm.Get(stateOnTopStack.StateNumber, lexems[i].TypeTerminal.Name);
 
             if (parserOperation.KindOperation is KindOperation.ERROR)
             {
-                throw new Exception("Ошибка парсинга");
+                var follow = ParserHelpers.FollowLexemsFor(stateOnTopStack.Symbol);
+
+                var message = 
+                    $"После '{stateOnTopStack.Symbol}' должны быть следующие символы [{string.Join(", ", follow)}]\n" +
+                    $"А никак НЕ '{lexems[i].TypeTerminal.Name}'";
+
+                throw new Exception(message);
             }
 
             switch (parserOperation.KindOperation)

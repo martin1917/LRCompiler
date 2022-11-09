@@ -15,28 +15,10 @@ public class Program
     private static void Test()
     {
         var code = @"
-            VAR 
-                x, y: LOGICAL;
+            VAR
+                a,b=c:LOGICAL;
             BEGIN
-                IF (x EQU 1) THEN
-                BEGIN
-                    y = 0;
-                    x = NOT (y AND (NOT (x OR y)));
-                END
-                ELSE
-                BEGIN
-                    READ(a, b, c);
-                    IF ((b EQU c) AND a) THEN
-                    BEGIN
-                        a = 1;
-                        x = NOT (c);
-                    END
-                    ELSE
-                    BEGIN
-                        c = 1;
-                    END
-                    WRITE(x);
-                END
+                x = y OR (NOT 1);
             END
             ";
 
