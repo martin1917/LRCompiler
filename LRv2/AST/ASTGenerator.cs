@@ -53,7 +53,7 @@ public class ASTGenerator
                     {
                         var rule = Rule.AllRules.First(r => r.NumberRule == parserOperation.Number);
 
-                        var childs = new List<TreeNode?>();
+                        var childs = new List<TreeNode>();
                         for (int k = 0; k < rule.Right.Length; k++)
                         {
                             StackItem stackItem = stack.Pop();
