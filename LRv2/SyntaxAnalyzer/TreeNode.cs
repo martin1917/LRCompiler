@@ -1,4 +1,4 @@
-﻿namespace LRv2.AST;
+﻿namespace LRv2.SyntaxAnalyzer;
 
 public class TreeNode
 {
@@ -7,7 +7,6 @@ public class TreeNode
     public List<TreeNode>? Childs { get; } = null;
 
     public TreeNode(string value) : this(value, null) { }
-
 
     public TreeNode(string value, List<TreeNode>? childs)
     {

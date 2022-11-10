@@ -1,4 +1,4 @@
-﻿namespace LRv2;
+﻿namespace LRv2.SyntaxAnalyzer;
 
 public class Situation
 {
@@ -25,8 +25,8 @@ public class Situation
     {
         if (obj is not Situation situation) return false;
 
-        return Rule.Equals(situation.Rule) 
-            && Pos == situation.Pos 
+        return Rule.Equals(situation.Rule)
+            && Pos == situation.Pos
             && Lookahead == situation.Lookahead;
     }
 

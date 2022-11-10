@@ -1,4 +1,4 @@
-﻿namespace LRv2;
+﻿namespace LRv2.LexicalAnalyzer;
 
 public class TypeTerminal
 {

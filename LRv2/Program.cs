@@ -1,9 +1,5 @@
-﻿using LRv2.AST;
-using LRv2.Parser;
-using OfficeOpenXml;
-using System.Data;
-using System.Text.Encodings.Web;
-using System.Text.Json;
+﻿using LRv2.LexicalAnalyzer;
+using LRv2.SyntaxAnalyzer;
 
 namespace LRv2;
 
@@ -44,82 +40,11 @@ public class Program
 
         var lexer = new Lexer(code);
         var lexems = lexer.GetLexems();
-        var fsm = ParserHelpers.BuildLRTable();
 
-        var ast = ASTGenerator.Generate(fsm, lexems);
-        var json = SerializeToJson(ast);
+        var table = LRTableGenerator.Generate();
+        var parser = new Parser(table);
 
-        var path = "C:\\Users\\marti\\OneDrive\\Desktop\\AST.json";
-
-        using StreamWriter writer = new StreamWriter(path, false);
-        writer.Write(json);
-    }
-
-    public static string SerializeToJson<T>(T obj) where T : class
-    {
-        var options = new JsonSerializerOptions
-        {
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-            WriteIndented = true
-        };
-        return JsonSerializer.Serialize(obj, options);
-    }
-
-    private static void SaveInExcel(LRTable fsm)
-    {
-        var uniqueNumberStates = fsm.GetUniqueNumberStates();
-        var uniqueLexems = fsm.GetUniqueLexems();
-
-        DataTable dataTable = new();
-        dataTable.Columns.Add("State", typeof(int));
-        foreach (var colName in uniqueLexems)
-        {
-            dataTable.Columns.Add($"{colName}", typeof(string));
-        }
-
-        foreach (var numberState in uniqueNumberStates)
-        {
-            var row = dataTable.NewRow();
-            row["State"] = numberState;
-
-            foreach (var lexem in uniqueLexems)
-            {
-                var pareserOperation = fsm.Get(numberState, lexem);
-                row[lexem] = pareserOperation.ToString();
-            }
-            dataTable.Rows.Add(row);
-        }
-
-        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-        var package = new ExcelPackage();
-        var sheet = package.Workbook.Worksheets.Add("FSM");
-
-        var initRow = 2;
-        var initCol = 5;
-
-        for (int i = 0; i < dataTable.Columns.Count; i++)
-        {
-            var col = dataTable.Columns[i];
-            sheet.Cells[initRow, initCol + i].Value = col.ColumnName;
-        }
-
-        for (int i = 0; i < dataTable.Rows.Count; i++)
-        {
-            var row = dataTable.Rows[i];
-            int column = initCol;
-
-            for (int j = 0; j < row.ItemArray.Length; j++)
-            {
-                var value = row.ItemArray[j];
-                sheet.Cells[initRow + i + 1, column + j].Value = value;
-            }
-        }
-
-        var endRow = initRow + dataTable.Rows.Count;
-        var endCol = initCol + dataTable.Columns.Count;
-        sheet.Cells[initRow, initCol, endRow, endCol].AutoFitColumns();
-
-        File.WriteAllBytes("C:\\Users\\marti\\OneDrive\\Desktop\\fsm.xlsx", package.GetAsByteArray());
+        var ast = parser.Parse(lexems);
+        Console.WriteLine();
     }
 }

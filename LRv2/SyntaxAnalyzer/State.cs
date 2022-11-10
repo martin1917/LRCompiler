@@ -1,4 +1,4 @@
-﻿namespace LRv2;
+﻿namespace LRv2.SyntaxAnalyzer;
 
 public class State
 {
@@ -31,7 +31,7 @@ public class State
     {
         if (obj is not State state) return false;
 
-        return state.Situations.Count == Situations.Count 
+        return state.Situations.Count == Situations.Count
             && Situations.All(x => state.Situations.Contains(x));
     }
 

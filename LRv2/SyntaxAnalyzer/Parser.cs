@@ -1,10 +1,17 @@
-﻿using LRv2.Parser;
+﻿using LRv2.LexicalAnalyzer;
 
-namespace LRv2.AST;
+namespace LRv2.SyntaxAnalyzer;
 
-public class ASTGenerator
+public class Parser
 {
-    public static TreeNode Generate(LRTable fsm, List<Lexem> lexems)
+    private readonly LRTable table;
+
+    public Parser(LRTable table)
+    {
+        this.table = table;
+    }
+
+    public TreeNode Parse(List<Lexem> lexems)
     {
         bool accept = false;
         int i = 0;
@@ -15,28 +22,28 @@ public class ASTGenerator
         while (!accept)
         {
             var stateOnTopStack = stack.Peek();
-            var parserOperation = fsm.Get(stateOnTopStack.StateNumber, lexems[i].TypeTerminal.Name);
+            var parserOperation = table.Get(stateOnTopStack.StateNumber, lexems[i].TypeTerminal.Name);
 
-            if (parserOperation.KindOperation is KindOperation.ERROR)
+            if (parserOperation.TypeOperation is ParserTypeOperation.ERROR)
             {
                 var follow = ParserHelpers.FollowLexemsFor(stateOnTopStack.Value);
 
-                var message = 
+                var message =
                     $"После '{stateOnTopStack.Value}' должны быть следующие символы [{string.Join(", ", follow)}]\n" +
                     $"А никак НЕ '{lexems[i].TypeTerminal.Name}'";
 
                 throw new Exception(message);
             }
 
-            switch (parserOperation.KindOperation)
+            switch (parserOperation.TypeOperation)
             {
-                case KindOperation.ACCEPT:
+                case ParserTypeOperation.ACCEPT:
                     {
                         accept = true;
                     }
                     break;
 
-                case KindOperation.SHIFT:
+                case ParserTypeOperation.SHIFT:
                     {
                         var nextStateNumber = parserOperation.Number;
 
@@ -49,9 +56,9 @@ public class ASTGenerator
                     }
                     break;
 
-                case KindOperation.REDUCE:
+                case ParserTypeOperation.REDUCE:
                     {
-                        var rule = Rule.AllRules.First(r => r.NumberRule == parserOperation.Number);
+                        var rule = Rules.GetByNumber(parserOperation.Number);
 
                         var childs = new List<TreeNode>();
                         for (int k = 0; k < rule.Right.Length; k++)
@@ -67,7 +74,7 @@ public class ASTGenerator
                         }
 
                         var stateAferReducing = stack.Peek().StateNumber;
-                        var operation = fsm.Get(stateAferReducing, rule.Left);
+                        var operation = table.Get(stateAferReducing, rule.Left);
                         var nextStateNumber = operation.Number;
                         stack.Push(new StackItem(nextStateNumber, rule.Left, new TreeNode(rule.Left, childs)));
                     }

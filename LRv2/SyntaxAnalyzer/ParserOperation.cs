@@ -1,30 +1,28 @@
-﻿using System.Drawing;
-
-namespace LRv2.Parser;
+﻿namespace LRv2.SyntaxAnalyzer;
 
 public struct ParserOperation : IEquatable<ParserOperation>
 {
-    public KindOperation KindOperation { get; }
+    public ParserTypeOperation TypeOperation { get; }
 
     public int Number { get; }
 
-    private ParserOperation(KindOperation kindOperation, int number = -1)
+    private ParserOperation(ParserTypeOperation typeOperation, int number = -1)
     {
-        KindOperation = kindOperation;
+        TypeOperation = typeOperation;
         Number = number;
     }
 
     public static ParserOperation NewShift(int nextState)
-        => new(KindOperation.SHIFT, nextState);
+        => new(ParserTypeOperation.SHIFT, nextState);
 
     public static ParserOperation NewReduce(int numberRule)
-        => new(KindOperation.REDUCE, numberRule);
+        => new(ParserTypeOperation.REDUCE, numberRule);
 
     public static ParserOperation NewAccept()
-        => new(KindOperation.ACCEPT);
+        => new(ParserTypeOperation.ACCEPT);
 
     public static ParserOperation NewError()
-        => new(KindOperation.ERROR);
+        => new(ParserTypeOperation.ERROR);
 
     public static bool operator ==(ParserOperation op1, ParserOperation op2)
     {
@@ -38,7 +36,7 @@ public struct ParserOperation : IEquatable<ParserOperation>
 
     public bool Equals(ParserOperation other)
     {
-        return KindOperation == other.KindOperation
+        return TypeOperation == other.TypeOperation
             && Number == other.Number;
     }
 
@@ -46,9 +44,9 @@ public struct ParserOperation : IEquatable<ParserOperation>
     {
         var IsEqual = false;
 
-        if (obj is Point)
+        if (obj is ParserOperation)
         {
-            IsEqual = Equals((Point)obj);
+            IsEqual = Equals((ParserOperation)obj);
         }
 
         return IsEqual;
@@ -56,16 +54,16 @@ public struct ParserOperation : IEquatable<ParserOperation>
 
     public override int GetHashCode()
     {
-        return KindOperation.GetHashCode() ^ Number.GetHashCode();
+        return TypeOperation.GetHashCode() ^ Number.GetHashCode();
     }
 
     public override string? ToString()
     {
-        return KindOperation switch
+        return TypeOperation switch
         {
-            KindOperation.SHIFT => $"SHIFT {Number}",
-            KindOperation.REDUCE => $"REDUCE {Number}",
-            KindOperation.ACCEPT => $"ACCEPT",
+            ParserTypeOperation.SHIFT => $"SHIFT {Number}",
+            ParserTypeOperation.REDUCE => $"REDUCE {Number}",
+            ParserTypeOperation.ACCEPT => $"ACCEPT",
             _ => string.Empty
         };
     }

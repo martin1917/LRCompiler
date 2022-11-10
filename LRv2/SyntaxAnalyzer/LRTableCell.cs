@@ -1,6 +1,6 @@
-﻿namespace LRv2.Parser;
+﻿namespace LRv2.SyntaxAnalyzer;
 
-public class LRTableItems
+public class LRTableCell
 {
     public int StateNumber { get; }
 
@@ -8,7 +8,7 @@ public class LRTableItems
 
     public ParserOperation ParserOperation { get; }
 
-    public LRTableItems(int stateNumber, string inputingLexem, ParserOperation parserOperation)
+    public LRTableCell(int stateNumber, string inputingLexem, ParserOperation parserOperation)
     {
         StateNumber = stateNumber;
         InputingLexem = inputingLexem;
@@ -17,7 +17,7 @@ public class LRTableItems
 
     public override bool Equals(object? obj)
     {
-        if (obj is not LRTableItems item) return false;
+        if (obj is not LRTableCell item) return false;
 
         return StateNumber == item.StateNumber
             && InputingLexem == item.InputingLexem
@@ -31,11 +31,11 @@ public class LRTableItems
 
     public override string? ToString()
     {
-        return ParserOperation.KindOperation switch
+        return ParserOperation.TypeOperation switch
         {
-            KindOperation.SHIFT => $"[{StateNumber}, {InputingLexem}] = SHIFT {ParserOperation.Number}",
-            KindOperation.REDUCE => $"[{StateNumber}, {InputingLexem}] = REDUCE {ParserOperation.Number}",
-            KindOperation.ACCEPT => $"[{StateNumber}, {InputingLexem}] = ACCEPT",
+            ParserTypeOperation.SHIFT => $"[{StateNumber}, {InputingLexem}] = SHIFT {ParserOperation.Number}",
+            ParserTypeOperation.REDUCE => $"[{StateNumber}, {InputingLexem}] = REDUCE {ParserOperation.Number}",
+            ParserTypeOperation.ACCEPT => $"[{StateNumber}, {InputingLexem}] = ACCEPT",
             _ => string.Empty
         };
     }

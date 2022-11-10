@@ -1,9 +1,9 @@
-﻿namespace LRv2;
+﻿namespace LRv2.LexicalAnalyzer;
 
 public class Lexem
 {
     public TypeTerminal TypeTerminal { get; } = null!;
-    
+
     public string Value { get; } = null!;
 
     public int Pos { get; }

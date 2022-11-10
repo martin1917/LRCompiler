@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace LRv2;
+namespace LRv2.LexicalAnalyzer;
 
 public class Lexer
 {
