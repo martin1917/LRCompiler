@@ -65,12 +65,7 @@ public class TypeTerminal
 
     public override int GetHashCode()
     {
-        unchecked
-        {
-            int hash = 17;
-            hash = hash * 23 + Name.GetHashCode();
-            return hash;
-        }
+        return HashCode.Combine(Name);
     }
 
     public override string? ToString()

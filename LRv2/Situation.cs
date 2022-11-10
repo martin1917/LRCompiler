@@ -32,14 +32,7 @@ public class Situation
 
     public override int GetHashCode()
     {
-        unchecked
-        {
-            int hash = 17;
-            hash = hash * 23 + Rule.GetHashCode();
-            hash = hash * 23 + Lookahead.GetHashCode();
-            hash = hash * 23 + Pos.GetHashCode();
-            return hash;
-        }
+        return HashCode.Combine(Rule, Lookahead, Pos);
     }
 
     public override string? ToString()

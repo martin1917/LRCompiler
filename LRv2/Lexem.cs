@@ -32,13 +32,7 @@ public class Lexem
 
     public override int GetHashCode()
     {
-        unchecked
-        {
-            int hash = 17;
-            hash = hash * 23 + Value.GetHashCode();
-            hash = hash * 23 + TypeTerminal.GetHashCode();
-            return hash;
-        }
+        return HashCode.Combine(Value, TypeTerminal);
     }
 
     public override string? ToString()

@@ -37,12 +37,7 @@ public class State
 
     public override int GetHashCode()
     {
-        unchecked
-        {
-            int hash = 17;
-            hash = hash * 23 + Situations.GetHashCode();
-            return hash;
-        }
+        return HashCode.Combine(Situations);
     }
 
     public override string? ToString()
