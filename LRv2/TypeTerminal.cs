@@ -5,7 +5,7 @@ public class TypeTerminal
     public static TypeTerminal[] AllTypes =
     {
         new TypeTerminal("var", "VAR"),
-        new TypeTerminal("variable", "[a-z]{1,11}"),
+        new TypeTerminal("ident", "[a-z]{1,11}"),
         new TypeTerminal("const", "[01]"),
         new TypeTerminal("comma", ","),
         new TypeTerminal("colon", ":"),
@@ -30,7 +30,7 @@ public class TypeTerminal
     };
 
     public static readonly TypeTerminal Var = AllTypes[0];
-    public static readonly TypeTerminal Variable = AllTypes[1];
+    public static readonly TypeTerminal Ident = AllTypes[1];
     public static readonly TypeTerminal Const = AllTypes[2];
     public static readonly TypeTerminal Comma = AllTypes[3];
     public static readonly TypeTerminal Colon = AllTypes[4];

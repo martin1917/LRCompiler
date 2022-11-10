@@ -2,23 +2,23 @@
 
 public class StackItem
 {
-    public string Symbol { get; }
+    public string Value { get; }
 
-    public string? Value { get; }
+    public string? Payload { get; }
 
     public int StateNumber { get; }
 
     public TreeNode? TreeNode { get; }
 
-    public StackItem(int stateNumber, string symbol, TreeNode? treeNode = null) : this(stateNumber, symbol, null, treeNode)
+    public StackItem(int stateNumber, string value, TreeNode? treeNode = null) : this(stateNumber, value, null, treeNode)
     {
     }
 
-    public StackItem(int stateNumber, string symbol, string? value, TreeNode? treeNode = null)
+    public StackItem(int stateNumber, string value, string? payload, TreeNode? treeNode = null)
     {
         StateNumber = stateNumber;
-        Symbol = symbol;
         Value = value;
+        Payload = payload;
         TreeNode = treeNode;
     }
 }

@@ -19,10 +19,10 @@ public class ASTGenerator
 
             if (parserOperation.KindOperation is KindOperation.ERROR)
             {
-                var follow = ParserHelpers.FollowLexemsFor(stateOnTopStack.Symbol);
+                var follow = ParserHelpers.FollowLexemsFor(stateOnTopStack.Value);
 
                 var message = 
-                    $"После '{stateOnTopStack.Symbol}' должны быть следующие символы [{string.Join(", ", follow)}]\n" +
+                    $"После '{stateOnTopStack.Value}' должны быть следующие символы [{string.Join(", ", follow)}]\n" +
                     $"А никак НЕ '{lexems[i].TypeTerminal.Name}'";
 
                 throw new Exception(message);
@@ -40,9 +40,9 @@ public class ASTGenerator
                     {
                         var nextStateNumber = parserOperation.Number;
 
-                        StackItem stackItem = lexems[i].IsVariableOrConst()
-                            ? new StackItem(nextStateNumber, lexems[i].TypeTerminal.Name, lexems[i].Value)
-                            : new StackItem(nextStateNumber, lexems[i].TypeTerminal.Name);
+                        StackItem stackItem = lexems[i].IsIdentOrConst()
+                            ? new StackItem(nextStateNumber, lexems[i].Type, lexems[i].Value)
+                            : new StackItem(nextStateNumber, lexems[i].Type);
 
                         stack.Push(stackItem);
                         i++;
@@ -56,12 +56,12 @@ public class ASTGenerator
                         var childs = new List<TreeNode?>();
                         for (int k = 0; k < rule.Right.Length; k++)
                         {
-                            StackItem item = stack.Pop();
+                            StackItem stackItem = stack.Pop();
 
-                            TreeNode? child = item.TreeNode;
-                            child ??= item.Value == null
-                                ? new TreeNode(item.Symbol)
-                                : new TreeNode(item.Symbol, new() { new TreeNode(item.Value) });
+                            TreeNode? child = stackItem.TreeNode;
+                            child ??= stackItem.Payload == null
+                                ? new TreeNode(stackItem.Value)
+                                : new TreeNode(stackItem.Value, new() { new TreeNode(stackItem.Payload) });
 
                             childs.Insert(0, child);
                         }

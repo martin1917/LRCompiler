@@ -17,8 +17,8 @@ public class Rule
 
         new Rule("<variable_declaration>", new string[]{ "var", "<list_variables>", "colon",  "logical", "semicolon" }),
 
-        new Rule("<list_variables>", new string[]{ "variable" }),
-        new Rule("<list_variables>", new string[]{ "variable", "comma", "<list_variables>" }),
+        new Rule("<list_variables>", new string[]{ "ident" }),
+        new Rule("<list_variables>", new string[]{ "ident", "comma", "<list_variables>" }),
 
         new Rule("<list_operators>", new string[]{ "<operator>" }),
         new Rule("<list_operators>", new string[]{ "<operator>", "<list_operators>" }),
@@ -30,17 +30,10 @@ public class Rule
         new Rule("<list_assignments>", new string[]{ "<assignment>" }),
         new Rule("<list_assignments>", new string[]{ "<assignment>", "<list_assignments>" }),
 
-        new Rule("<assignment>", new string[]{ "variable", "assign", "<expr>", "semicolon" }),
+        new Rule("<assignment>", new string[]{ "ident", "assign", "<expr>", "semicolon" }),
 
         new Rule("<expr>", new string[]{ "<unary_op>", "<sub_expr>" }),
         new Rule("<expr>", new string[]{ "<sub_expr>" }),
-
-        //new Rule("<sub_expr>", new string[]{ "lparam", "<expr>", "rparam", "<A>" }),
-        //new Rule("<sub_expr>", new string[]{ "<operand>", "<A>" }),
-        //new Rule("<sub_expr>", new string[]{ "lparam", "<expr>", "rparam" }),
-        //new Rule("<sub_expr>", new string[]{ "<operand>" }),
-        //new Rule("<A>", new string[]{ "<bin_op>", "<sub_expr>", "<A>" }),
-        //new Rule("<A>", new string[]{ "<bin_op>", "<sub_expr>" }),
 
         new Rule("<sub_expr>", new string[]{ "lparam", "<expr>", "rparam" }),
         new Rule("<sub_expr>", new string[]{ "<operand>" }),
@@ -52,7 +45,7 @@ public class Rule
         new Rule("<bin_op>", new string[]{ "or" }),
         new Rule("<bin_op>", new string[]{ "equ" }),
 
-        new Rule("<operand>", new string[]{ "variable" }),
+        new Rule("<operand>", new string[]{ "ident" }),
         new Rule("<operand>", new string[]{ "const" }),
     };
 

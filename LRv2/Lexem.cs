@@ -15,8 +15,10 @@ public class Lexem
         Pos = pos;
     }
 
-    public bool IsVariableOrConst()
-        => TypeTerminal.Name == TypeTerminal.Variable.Name
+    public string Type => TypeTerminal.Name;
+
+    public bool IsIdentOrConst()
+        => TypeTerminal.Name == TypeTerminal.Ident.Name
         || TypeTerminal.Name == TypeTerminal.Const.Name;
 
     public static Lexem CreateEndLexem()
