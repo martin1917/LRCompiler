@@ -2,6 +2,8 @@
 using LRv2.Parser;
 using OfficeOpenXml;
 using System.Data;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 
 namespace LRv2;
 
@@ -15,10 +17,28 @@ public class Program
     private static void Test()
     {
         var code = @"
-            VAR
-                a,b=c:LOGICAL;
+            VAR 
+                x, y: LOGICAL;
             BEGIN
-                x = y OR (NOT 1);
+                IF (x EQU 1) THEN
+                BEGIN
+                    y = 0;
+                    x = NOT (y AND (NOT (x OR y)));
+                END
+                ELSE
+                BEGIN
+                    READ(a, b, c);
+                    IF ((b EQU c) AND a) THEN
+                    BEGIN
+                        a = 1;
+                        x = NOT (c);
+                    END
+                    ELSE
+                    BEGIN
+                        c = 1;
+                    END
+                    WRITE(x);
+                END
             END
             ";
 
@@ -27,9 +47,25 @@ public class Program
         var fsm = ParserHelpers.BuildLRTable();
 
         var ast = ASTGenerator.Generate(fsm, lexems);
-        Console.WriteLine();
+        var json = SerializeToJson(ast);
+
+        var path = "C:\\Users\\marti\\OneDrive\\Desktop\\AST.json";
+
+        using StreamWriter writer = new StreamWriter(path, false);
+        writer.Write(json);
     }
-    
+
+    public static string SerializeToJson<T>(T obj) where T : class
+    {
+        var options = new JsonSerializerOptions
+        {
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
+            WriteIndented = true
+        };
+        return JsonSerializer.Serialize(obj, options);
+    }
+
     private static void SaveInExcel(LRTable fsm)
     {
         var uniqueNumberStates = fsm.GetUniqueNumberStates();

@@ -58,12 +58,10 @@ public class ASTGenerator
                         {
                             StackItem item = stack.Pop();
 
-                            TreeNode child = item.TreeNode
-                                ?? new TreeNode(
-                                    value: item.Symbol,
-                                    childs: item.Value != null
-                                        ? new() { new TreeNode(item.Value) }
-                                        : new());
+                            TreeNode? child = item.TreeNode;
+                            child ??= item.Value == null
+                                ? new TreeNode(item.Symbol)
+                                : new TreeNode(item.Symbol, new() { new TreeNode(item.Value) });
 
                             childs.Insert(0, child);
                         }
