@@ -7,7 +7,9 @@ public class LRTable
     public ParserOperation Get(int stateNumber, string inputingLexem)
     {
         var row = Items.FirstOrDefault(r => r.StateNumber == stateNumber && r.InputingLexem.Equals(inputingLexem));
-        return row != null ? row.ParserOperation : ParserOperation.NewError();
+        return row != null 
+            ? row.ParserOperation 
+            : ParserOperation.NewError();
     }
 
     public bool Add(int stateNumber, string inputingLexem, ParserOperation parserOperation)

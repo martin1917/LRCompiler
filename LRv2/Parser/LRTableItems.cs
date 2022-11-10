@@ -26,14 +26,7 @@ public class LRTableItems
 
     public override int GetHashCode()
     {
-        unchecked
-        {
-            int hash = 17;
-            hash = hash * 23 + StateNumber.GetHashCode();
-            hash = hash * 23 + InputingLexem.GetHashCode();
-            hash = hash * 23 + ParserOperation.GetHashCode();
-            return hash;
-        }
+        return HashCode.Combine(StateNumber, InputingLexem, ParserOperation);
     }
 
     public override string? ToString()
