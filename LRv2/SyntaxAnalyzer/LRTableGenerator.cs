@@ -1,4 +1,5 @@
 ﻿using LRv2.Extentions;
+using LRv2.LexicalAnalyzer;
 
 namespace LRv2.SyntaxAnalyzer;
 
@@ -8,7 +9,7 @@ public static class LRTableGenerator
     {
         LRTable table = new();
 
-        var initSituation = new Situation(Rules.Init, 0, "eof");
+        var initSituation = new Situation(Rules.Init, 0, TypeTerminal.Eof.Name);
         var initState = new State(new List<Situation>() { initSituation });
         Closure(initState);
 

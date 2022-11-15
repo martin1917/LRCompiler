@@ -15,27 +15,27 @@ public static class Rules
         new Rule("<list_actions>", new string[]{ "<list_operators>" }),
         new Rule("<list_actions>", new string[]{ "<list_operators>", "<list_actions>" }),
 
-        new Rule("<variable_declaration>", new string[]{ "var", "<list_variables>", "colon",  "logical", "semicolon" }),
+        new Rule("<variable_declaration>", new string[]{ "var", "<list_variables>", ":",  "logical", ";" }),
 
         new Rule("<list_variables>", new string[]{ "ident" }),
-        new Rule("<list_variables>", new string[]{ "ident", "comma", "<list_variables>" }),
+        new Rule("<list_variables>", new string[]{ "ident", ",", "<list_variables>" }),
 
         new Rule("<list_operators>", new string[]{ "<operator>" }),
         new Rule("<list_operators>", new string[]{ "<operator>", "<list_operators>" }),
 
-        new Rule("<operator>", new string[]{ "read", "lparam", "<list_variables>", "rparam", "semicolon" }),
-        new Rule("<operator>", new string[]{ "write", "lparam", "<list_variables>", "rparam", "semicolon" }),
-        new Rule("<operator>", new string[]{ "if", "lparam", "<expr>", "rparam", "then", "<description_calculations>", "else", "<description_calculations>" }),
+        new Rule("<operator>", new string[]{ "read", "(", "<list_variables>", ")", ";" }),
+        new Rule("<operator>", new string[]{ "write", "(", "<list_variables>", ")", ";" }),
+        new Rule("<operator>", new string[]{ "if", "(", "<expr>", ")", "then", "<description_calculations>", "else", "<description_calculations>" }),
 
         new Rule("<list_assignments>", new string[]{ "<assignment>" }),
         new Rule("<list_assignments>", new string[]{ "<assignment>", "<list_assignments>" }),
 
-        new Rule("<assignment>", new string[]{ "ident", "assign", "<expr>", "semicolon" }),
+        new Rule("<assignment>", new string[]{ "ident", "=", "<expr>", ";" }),
 
         new Rule("<expr>", new string[]{ "<unary_op>", "<sub_expr>" }),
         new Rule("<expr>", new string[]{ "<sub_expr>" }),
 
-        new Rule("<sub_expr>", new string[]{ "lparam", "<expr>", "rparam" }),
+        new Rule("<sub_expr>", new string[]{ "(", "<expr>", ")" }),
         new Rule("<sub_expr>", new string[]{ "<operand>" }),
         new Rule("<sub_expr>", new string[]{ "<sub_expr>", "<bin_op>", "<sub_expr>" }),
 

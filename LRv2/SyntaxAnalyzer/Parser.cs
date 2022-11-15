@@ -22,7 +22,7 @@ public class Parser
         while (!accept)
         {
             var stateOnTopStack = stack.Peek();
-            var parserOperation = table.Get(stateOnTopStack.StateNumber, lexems[i].TypeTerminal.Name);
+            var parserOperation = table.Get(stateOnTopStack.StateNumber, lexems[i].Type);
 
             if (parserOperation.TypeOperation is ParserTypeOperation.ERROR)
             {
