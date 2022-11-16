@@ -1,26 +1,25 @@
 ﻿using LRv2.SyntaxAnalyzer;
+using Newtonsoft.Json;
 using OfficeOpenXml;
 using System.Data;
-using System.Text.Encodings.Web;
-using System.Text.Json;
 
 namespace LRv2;
 
 public static class Utils
-{
-    public static void SaveTreeInJson(TreeNode ast, string path)
+{    
+    public static void SaveInJson<T>(T obj, string path) where T : class
     {
-        var options = new JsonSerializerOptions
+        var settings = new JsonSerializerSettings
         {
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-            WriteIndented = true
+            TypeNameHandling = TypeNameHandling.None,
+            Formatting = Formatting.Indented,
+            NullValueHandling = NullValueHandling.Ignore,
         };
 
-        var json = JsonSerializer.Serialize(ast, options);
+        string json = JsonConvert.SerializeObject(obj, settings);
         using var writer = new StreamWriter(path, false);
         writer.Write(json);
-    }  
+    }
 
     public static void SaveTableInExcel(LRTable table, string path)
     {
