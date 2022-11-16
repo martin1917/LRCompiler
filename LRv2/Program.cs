@@ -87,8 +87,7 @@ public class Program
 
     public static void Main(string[] args)
     {
-        Test(2);
-
+        Test(1);
     }
 
     private static void Test(int index)

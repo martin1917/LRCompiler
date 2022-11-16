@@ -1,57 +1,46 @@
-﻿namespace LRv2.LexicalAnalyzer;
+﻿using System.Reflection;
+
+namespace LRv2.LexicalAnalyzer;
 
 public class TypeTerminal
 {
-    public static TypeTerminal[] AllTypes =
-    {
-        new TypeTerminal("var", "VAR"),
-        new TypeTerminal("ident", "[a-z]{1,11}"),
-        new TypeTerminal("const", "[01]"),
-        new TypeTerminal(",", ","),
-        new TypeTerminal(":", ":"),
-        new TypeTerminal("logical", "LOGICAL"),
-        new TypeTerminal(";", ";"),
-        new TypeTerminal("begin", "BEGIN"),
-        new TypeTerminal("end", "END"),
-        new TypeTerminal("space", "[ \\n\\t\\r]"),
-        new TypeTerminal("=", "="),
-        new TypeTerminal("(", "\\("),
-        new TypeTerminal(")", "\\)"),
-        new TypeTerminal("if", "IF"),
-        new TypeTerminal("then", "THEN"),
-        new TypeTerminal("else", "ELSE"),
-        new TypeTerminal("read", "READ"),
-        new TypeTerminal("write", "WRITE"),
-        new TypeTerminal("not", "NOT"),
-        new TypeTerminal("and", "AND"),
-        new TypeTerminal("or", "OR"),
-        new TypeTerminal("equ", "EQU"),
-        new TypeTerminal("eof", "\\$")
-    };
+    private static List<TypeTerminal> allTypes;
 
-    public static readonly TypeTerminal Var = AllTypes[0];
-    public static readonly TypeTerminal Ident = AllTypes[1];
-    public static readonly TypeTerminal Const = AllTypes[2];
-    public static readonly TypeTerminal Comma = AllTypes[3];
-    public static readonly TypeTerminal Colon = AllTypes[4];
-    public static readonly TypeTerminal Logical = AllTypes[5];
-    public static readonly TypeTerminal Semicolon = AllTypes[6];
-    public static readonly TypeTerminal Begin = AllTypes[7];
-    public static readonly TypeTerminal End = AllTypes[8];
-    public static readonly TypeTerminal Space = AllTypes[9];
-    public static readonly TypeTerminal Assign = AllTypes[10];
-    public static readonly TypeTerminal Lparam = AllTypes[11];
-    public static readonly TypeTerminal Rparam = AllTypes[12];
-    public static readonly TypeTerminal If = AllTypes[13];
-    public static readonly TypeTerminal Then = AllTypes[14];
-    public static readonly TypeTerminal Else = AllTypes[15];
-    public static readonly TypeTerminal Read = AllTypes[16];
-    public static readonly TypeTerminal Write = AllTypes[17];
-    public static readonly TypeTerminal Not = AllTypes[18];
-    public static readonly TypeTerminal And = AllTypes[19];
-    public static readonly TypeTerminal Or = AllTypes[20];
-    public static readonly TypeTerminal Equ = AllTypes[21];
-    public static readonly TypeTerminal Eof = AllTypes[22];
+    public static List<TypeTerminal> AllTypes => allTypes
+        ??= LoadAllTypes();
+
+    private static List<TypeTerminal> LoadAllTypes()
+    {
+        var fields = typeof(TypeTerminal)
+            .GetFields(BindingFlags.Public | BindingFlags.Static)
+            .Select(f => f.GetValue(null) as TypeTerminal);
+
+        return new List<TypeTerminal>(fields!);
+    }
+
+    public static readonly TypeTerminal Var       =  new("var", "VAR");
+    public static readonly TypeTerminal Ident     =  new("ident", "[a-z]{1,11}");
+    public static readonly TypeTerminal Const     =  new("const", "[01]");
+    public static readonly TypeTerminal Comma     =  new(",", ",");
+    public static readonly TypeTerminal Colon     =  new(":", ":");
+    public static readonly TypeTerminal Logical   =  new("logical", "LOGICAL");
+    public static readonly TypeTerminal Semicolon =  new(";", ";");
+    public static readonly TypeTerminal Begin     =  new("begin", "BEGIN");
+    public static readonly TypeTerminal End       =  new("end", "END");
+    public static readonly TypeTerminal Space     =  new("space", "[ \\n\\t\\r]");
+    public static readonly TypeTerminal Assign    =  new("=", "=");
+    public static readonly TypeTerminal Lparam    =  new("(", "\\(");
+    public static readonly TypeTerminal Rparam    =  new(")", "\\)");
+    public static readonly TypeTerminal If        =  new("if", "IF");
+    public static readonly TypeTerminal Then      =  new("then", "THEN");
+    public static readonly TypeTerminal Else      =  new("else", "ELSE");
+    public static readonly TypeTerminal Read      =  new("read", "READ");
+    public static readonly TypeTerminal Write     =  new("write", "WRITE");
+    public static readonly TypeTerminal Not       =  new("not", "NOT");
+    public static readonly TypeTerminal And       =  new("and", "AND");
+    public static readonly TypeTerminal Or        =  new("or", "OR");
+    public static readonly TypeTerminal Equ       =  new("equ", "EQU");
+    public static readonly TypeTerminal Eof       =  new("eof", "\\$");
 
     public string Name { get; }
 

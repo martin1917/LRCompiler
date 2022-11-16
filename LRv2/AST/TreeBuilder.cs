@@ -1,6 +1,5 @@
 ﻿using LRv2.SyntaxAnalyzer.Nodes;
 using LRv2.SyntaxAnalyzer;
-using System.Text;
 
 namespace LRv2.AST;
 
@@ -13,6 +12,7 @@ public class TreeBuilder
         this.cst = cst;
     }
 
+    // <program> ::= <variable_declaration> <description_calculations>
     public ProgramNode BuildAST()
     {
         var res = new ProgramNode()
@@ -24,6 +24,7 @@ public class TreeBuilder
         return res;
     }
 
+    // <list_variables> ::= <variable> | <variable> , <list_variables>
     private VarNode GetVarNode(TreeNode node)
     {
         var res = new List<string>();
@@ -47,6 +48,7 @@ public class TreeBuilder
         };
     }
 
+    // <assignment> ::= <id> = <expr> ;
     private List<StatemantNode> GetAssigments(TreeNode node)
     {
         List<StatemantNode> res = new();
@@ -80,6 +82,9 @@ public class TreeBuilder
         return res;
     }
 
+    // <operator> ::= read ( <list_variables> )
+    // <operator> ::= write ( <list_variables> )
+    // <operator> ::= if ( <expr> ) then <description_calculations> else <description_calculations>
     private List<StatemantNode> GetOperators(TreeNode node)
     {
         List<StatemantNode> res = new();
@@ -129,6 +134,9 @@ public class TreeBuilder
         return res;
     }
 
+    // <description_calculations> ::= <list_actions>
+    // <list_actions> ::= <list_assignments> | <list_assignments> <list_actions>
+    // <list_actions> ::= <list_operators> | <list_operators> <list_actions>
     private ScopeNode GetStatement(TreeNode node)
     {
         var statements = new List<StatemantNode>();
