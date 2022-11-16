@@ -1,6 +1,6 @@
 ﻿namespace LRv2.SyntaxAnalyzer.Nodes;
 
-public class BinOpNode : BaseNode
+public class BinOpNode : StatemantNode
 {
     public string Operation { get; set; }
 

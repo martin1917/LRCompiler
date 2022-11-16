@@ -100,7 +100,9 @@ public class Program
         var table = LRTableGenerator.Generate();
         var parser = new Parser(table);
 
-        var ast = parser.Parse(lexems);
-        var obj = new TreeService(ast);
+        var cst = parser.Parse(lexems);
+        var service = new TreeService(cst);
+        var tree = service.GetTree(); 
+        Utils.SaveInJson(tree, "C:\\Users\\marti\\OneDrive\\Desktop\\tree.json");
     }
 }

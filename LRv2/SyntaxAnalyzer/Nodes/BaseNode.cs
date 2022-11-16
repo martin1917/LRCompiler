@@ -4,3 +4,5 @@ public abstract class BaseNode
 {
     public string Type => GetType().Name;
 }
+
+public abstract class StatemantNode : BaseNode { }

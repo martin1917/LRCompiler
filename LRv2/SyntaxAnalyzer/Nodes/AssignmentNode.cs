@@ -1,6 +1,6 @@
 ﻿namespace LRv2.SyntaxAnalyzer.Nodes;
 
-public class AssignmentNode : BaseNode
+public class AssignmentNode : StatemantNode
 {
     public VariableNode Variable { get; set; }
 

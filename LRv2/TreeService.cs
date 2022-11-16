@@ -7,25 +7,25 @@ namespace LRv2;
 
 public class TreeService
 {
-	private readonly TreeNode ast;
+	private readonly TreeNode cst;
 
-	public TreeService(TreeNode ast)
+	public TreeService(TreeNode cst)
 	{
-		this.ast = ast;
+		this.cst = cst;
 	}
 
     public ProgramNode GetTree()
     {
         var res = new ProgramNode()
         {
-            Vars = GetVarNode(ast.Childs!.First().Childs![1]),
-            Body = GetStatement(ast.Childs!.Last())
+            Vars = GetVarNode(cst.Childs!.First().Childs![1]),
+            Body = GetStatement(cst.Childs!.Last())
         };
 
         return res;
     }
 
-    public VarNode GetVarNode(TreeNode node)
+    private VarNode GetVarNode(TreeNode node)
     {
         var res = new List<string>();
 
@@ -48,22 +48,24 @@ public class TreeService
         };
     }
 
-    public List<AssignmentNode> GetAssigments(TreeNode node)
+    private List<StatemantNode> GetAssigments(TreeNode node)
     {
-        List<AssignmentNode> res = new();
+        List<StatemantNode> res = new();
 
-        void GetAssigmentsInternal(TreeNode node, List<AssignmentNode> assignmentNodes)
+        void GetAssigmentsInternal(TreeNode node, List<StatemantNode> assignmentNodes)
         {
             if (node.Value == "<assignment>")
             {
-                var rpn = ExpressionToTree.GetRPN(GetValueInLeaf(node.Childs![2]));
-                var expr = ExpressionToTree.Convert(rpn);
+                var expr = ExpressionToTree.Convert(GetValueInLeaf(node.Childs![2]));
+
+                var nodeIdent = node.Childs!.First();
+                var ident = nodeIdent.Childs!.First().Value;
 
                 assignmentNodes.Add(new AssignmentNode()
                 {
                     Variable = new VariableNode()
                     {
-                        Ident = node.Childs!.First().Childs!.First().Value,
+                        Ident = ident
                     },
                     Expression = expr
                 });
@@ -78,12 +80,12 @@ public class TreeService
         GetAssigmentsInternal(node, res);
         return res;
     }
-    
-    public List<BaseNode> GetOperators(TreeNode node)
-    {
-        List<BaseNode> res = new();
 
-        void GetOperatorsInternal(TreeNode node, List<BaseNode> operatorNodes)
+    private List<StatemantNode> GetOperators(TreeNode node)
+    {
+        List<StatemantNode> res = new();
+
+        void GetOperatorsInternal(TreeNode node, List<StatemantNode> operatorNodes)
         {
             if (node.Value == "<operator>")
             {
@@ -105,7 +107,7 @@ public class TreeService
                 }
                 else if (nameNodes.Contains("if") && nameNodes.Contains("else"))
                 {
-                    var predicate = ExpressionToTree.Convert(ExpressionToTree.GetRPN(GetValueInLeaf(node.Childs![2])));
+                    var predicate = ExpressionToTree.Convert(GetValueInLeaf(node.Childs![2]));
                     var left = GetStatement(node.Childs![5]);
                     var right = GetStatement(node.Childs![7]);
 
@@ -120,14 +122,7 @@ public class TreeService
             else if (node.Value != "<description_calculations>")
             {
                 if (node.Value == "<list_assignments>") return;
-
-                if (node.Childs != null)
-                {
-                    foreach(var child in node.Childs)
-                    {
-                        GetOperatorsInternal(child, operatorNodes);
-                    }
-                }
+                node.Childs?.ForEach(child => GetOperatorsInternal(child, operatorNodes));
             }
         }
 
@@ -135,16 +130,17 @@ public class TreeService
         return res;
     }
 
-    public StatementNode GetStatement(TreeNode node)
+    private ScopeNode GetStatement(TreeNode node)
     {
-        var codes = new List<BaseNode>();
+        var statements = new List<StatemantNode>();
 
         var assignments = GetAssigments(node.Childs![1]);
         var operators = GetOperators(node.Childs![1]);
 
-        codes.AddRange(assignments);
-        codes.AddRange(operators);
-        return new StatementNode() { Code = codes };
+        statements.AddRange(assignments);
+        statements.AddRange(operators);
+
+        return new ScopeNode() { Statements = statements };
     }
 
     private List<string> GetValueInLeaf(TreeNode node)
@@ -184,20 +180,7 @@ public class ExpressionToTree
         {"not", 4},
     };
 
-    public static string GetRPN(string expr)
-    {
-        expr = Regex.Replace(expr, @"\(", " ( ");
-        expr = Regex.Replace(expr, @"\)", " ) ");
-        expr = Regex.Replace(expr, @"\s+", " ");
-
-        var symbols = expr
-            .Split(" ")
-            .Where(s => !string.IsNullOrEmpty(s));
-
-        return GetRPN(symbols);
-    }
-
-    public static string GetRPN(IEnumerable<string> symbols)
+    private static string GetRPN(IEnumerable<string> symbols)
     {
         var result = string.Empty;
         var stack = new Stack<string>();
@@ -253,9 +236,9 @@ public class ExpressionToTree
         return result.Trim();
     }
 
-    public static BaseNode Convert(string expr)
+    public static BaseNode Convert(IEnumerable<string> items)
     {
-        var parts = expr.Split(" ");
+        var parts = GetRPN(items).Split(" ");
         var stack = new Stack<BaseNode>();
 
         foreach (var part in parts)

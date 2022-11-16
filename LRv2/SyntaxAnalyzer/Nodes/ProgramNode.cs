@@ -4,5 +4,5 @@ public class ProgramNode : BaseNode
 {
     public VarNode Vars { get; set; }
 
-    public StatementNode Body { get; set; }
+    public ScopeNode Body { get; set; }
 }

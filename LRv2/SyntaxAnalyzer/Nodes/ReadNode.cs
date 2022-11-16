@@ -1,6 +1,6 @@
 ﻿namespace LRv2.SyntaxAnalyzer.Nodes;
 
-public class ReadNode : BaseNode
+public class ReadNode : StatemantNode
 {
     public VarNode Vars { get; set; }
 }
