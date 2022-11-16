@@ -1,6 +1,6 @@
 ﻿using LRv2.LexicalAnalyzer;
 using LRv2.SyntaxAnalyzer;
-using System.Collections.Generic;
+using LRv2.SyntaxAnalyzer.Nodes;
 using System.Text.RegularExpressions;
 
 namespace LRv2;
@@ -51,11 +51,44 @@ public class Program
                 resfive = NOT x OR y EQU z OR w;
             END
         ",
+
+        @"
+            VAR
+	            x, y, z, w: LOGICAL;
+	
+            BEGIN
+	            READ(x, y, z, w);
+	
+	            IF (NOT (x OR y) AND z) THEN
+	            BEGIN
+		            WRITE(z, w);
+		            z = NOT ((x EQU z) AND w);
+	            END
+	            ELSE
+	            BEGIN
+		            x = w OR z AND x;
+		            w = x EQU x AND (NOT x);
+		            READ(z, x);
+		
+		            IF (z EQU x) THEN
+		            BEGIN
+			            READ(w);
+			            WRITE(w);
+		            END
+		            ELSE
+		            BEGIN
+			            w = z OR x AND z AND x;
+			            WRITE(z,w);
+			            READ(w);
+		            END
+	            END
+            END
+        "
     };
 
     public static void Main(string[] args)
     {
-        Test(1);
+        Test(2);
     }
 
     private static void Test(int index)
@@ -69,86 +102,8 @@ public class Program
         var parser = new Parser(table);
 
         var ast = parser.Parse(lexems);
-        TestGetingLeaf(ast);
-        Console.WriteLine();
-    }
-
-    private static List<TreeNode> GetLeaf(TreeNode tree)
-    {
-        List<TreeNode> leafs = new();
-
-        void GetLeafInternal(TreeNode tree, List<TreeNode> leafs)
-        {
-            if (tree.Childs == null)
-            {
-                leafs.Add(tree);
-            }
-            else
-            {
-                foreach(var child in tree.Childs)
-                {
-                    GetLeafInternal(child, leafs);
-                }
-            }
-        }
-        GetLeafInternal(tree, leafs);
-        return leafs;
-    }
-
-    private static void TestGetingLeaf(TreeNode tree)
-    {
-        if (tree.Value == "<assignment>")
-        {
-            var leafs = GetLeaf(tree.Childs![2]).Select(s => s.Value);
-            var rpn = ExpressionToTree.GetRPN(leafs);
-            var a = ExpressionToTree.Convert(rpn);
-        }
-        else if (tree.Childs != null)
-        {
-            foreach (var child in tree.Childs)
-            {
-                TestGetingLeaf(child);
-            }
-        }
     }
 }
-
-#region nodes
-public abstract class BaseNode { }
-
-public class VariableNode : BaseNode
-{
-    public string Ident { get; set; }
-}
-
-public class ConstNode : BaseNode
-{
-    public bool Value { get; set; }
-}
-
-public class UnaryOpNode : BaseNode
-{
-    public string Operation { get; set; }
-
-    public BaseNode Node { get; set; }
-}
-
-public class BinOpNode : BaseNode
-{
-    public string Operation { get; set; }
-
-    public BaseNode Left { get; set; }
-
-    public BaseNode Right { get; set; }
-}
-
-public class AssignmentNode : BaseNode
-{
-    public VariableNode Variable { get; set; }
-    
-    public BaseNode Expression { get; set; }
-}
-#endregion
 
 public static class Consts
 {
@@ -249,7 +204,7 @@ public class ExpressionToTree
             }
             else
             {
-                while (stack.Any() && priorities[stack.Peek()] >= priority && stack.Peek() != TypeTerminal.Lparam.Name)
+                while (stack.Any() && priorities[stack.Peek()] >= priority)
                 {
                     var popElem = stack.Pop();
                     result += $"{popElem} ";
@@ -294,7 +249,7 @@ public class ExpressionToTree
                 continue;
             }
 
-            if (part == TypeTerminal.Not.Name)
+            if (Consts.IsUnOp(part))
             {
                 var elem = stack.Pop();
 
@@ -307,11 +262,7 @@ public class ExpressionToTree
                 continue;
             }
 
-            bool isBinOp = part == TypeTerminal.Or.Name
-                || part == TypeTerminal.And.Name
-                || part == TypeTerminal.Equ.Name;
-            
-            if (isBinOp)
+            if (Consts.IsBinOp(part))
             {
                 var elem2 = stack.Pop();
                 var elem1 = stack.Pop();
