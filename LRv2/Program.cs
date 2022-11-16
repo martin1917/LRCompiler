@@ -1,4 +1,5 @@
-﻿using LRv2.LexicalAnalyzer;
+﻿using LRv2.AST;
+using LRv2.LexicalAnalyzer;
 using LRv2.SyntaxAnalyzer;
 
 namespace LRv2;
@@ -101,8 +102,8 @@ public class Program
         var parser = new Parser(table);
 
         var cst = parser.Parse(lexems);
-        var service = new TreeService(cst);
-        var tree = service.GetTree(); 
-        Utils.SaveInJson(tree, "C:\\Users\\marti\\OneDrive\\Desktop\\tree.json");
+        var builder = new TreeBuilder(cst);
+        var ast = builder.BuildAST(); 
+        Utils.SaveInJson(ast, "C:\\Users\\marti\\OneDrive\\Desktop\\tree.json");
     }
 }
