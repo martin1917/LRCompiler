@@ -45,6 +45,6 @@ public class Lexer
             }
         }
 
-        throw new Exception($"Error on {pos}");
+        throw new Exception($"Не допустимая лексема на позиции {pos}");
     }
 }

@@ -12,7 +12,7 @@ public class ASTWorker
 	public ASTWorker(ProgramNode programNode)
 	{
 		root = programNode;
-	}
+    }
 
     private List<string> GetErrors(BaseNode node)
     {

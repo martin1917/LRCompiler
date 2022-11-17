@@ -94,19 +94,67 @@ public class Program
 
     private static void Test(int index)
     {
+        // текст программы
         var code = examples[index];
 
+        // лексер
         var lexer = new Lexer(code);
-        var lexems = lexer.GetLexems();
 
-        var table = LRTableGenerator.Generate();
+        // лексемы, полученные с помощью лексера
+        List<Lexem> lexems;
+        try
+        {
+            lexems = lexer.GetLexems();
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return;
+        }
+
+        // таблица переходов для LR(1) анализатора
+        LRTable table;
+        try
+        {
+            table = LRTableGenerator.Generate();
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return;
+        }
+        
+        // парсер
         var parser = new Parser(table);
 
-        var cst = parser.Parse(lexems);
+        // Преобразование коллекцим лексем в древовидную структуру,
+        // согласно правилам грамматики и таблице переходов
+        TreeNode cst;
+        try
+        {
+            cst = parser.Parse(lexems);
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return;
+        }
+
+        // Преобразователь конкретного дерева в абстрактное
         var builder = new TreeBuilder(cst);
+
+        // абстрактно синтаксическое дерево (AST)
         var ast = builder.BuildAST();
 
+        // Обработчик AST
         var worker = new ASTWorker(ast);
-        worker.Proccess();
+        try
+        {
+            worker.Proccess();
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 }
