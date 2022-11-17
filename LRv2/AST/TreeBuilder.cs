@@ -48,12 +48,11 @@ public class TreeBuilder
         };
     }
 
-    // <assignment> ::= <id> = <expr> ;
-    private List<StatemantNode> GetAssigments(TreeNode node)
+    private List<StatemantNode> GetAssignmentsAndOperators(TreeNode node)
     {
         List<StatemantNode> res = new();
 
-        void GetAssigmentsInternal(TreeNode node, List<StatemantNode> assignmentNodes)
+        void GetAssignmentsAndOperatorsInternal(TreeNode node, List<StatemantNode> res)
         {
             if (node.Value == "<assignment>")
             {
@@ -62,7 +61,7 @@ public class TreeBuilder
                 var nodeIdent = node.Childs!.First();
                 var ident = nodeIdent.Childs!.First().Value;
 
-                assignmentNodes.Add(new AssignmentNode()
+                res.Add(new AssignmentNode()
                 {
                     Variable = new VariableNode()
                     {
@@ -71,40 +70,21 @@ public class TreeBuilder
                     Expression = expr
                 });
             }
-            else if (node.Value != "<description_calculations>")
-            {
-                if (node.Value == "<list_operators>") return;
-                node.Childs?.ForEach(c => GetAssigmentsInternal(c, assignmentNodes));
-            }
-        }
 
-        GetAssigmentsInternal(node, res);
-        return res;
-    }
-
-    // <operator> ::= read ( <list_variables> )
-    // <operator> ::= write ( <list_variables> )
-    // <operator> ::= if ( <expr> ) then <description_calculations> else <description_calculations>
-    private List<StatemantNode> GetOperators(TreeNode node)
-    {
-        List<StatemantNode> res = new();
-
-        void GetOperatorsInternal(TreeNode node, List<StatemantNode> operatorNodes)
-        {
-            if (node.Value == "<operator>")
+            else if (node.Value == "<operator>")
             {
                 var nameNodes = node.Childs!.Select(c => c.Value);
 
                 if (nameNodes.Contains("read"))
                 {
-                    operatorNodes.Add(new ReadNode()
+                    res.Add(new ReadNode()
                     {
                         Vars = GetVarNode(node.Childs![2])
                     });
                 }
                 else if (nameNodes.Contains("write"))
                 {
-                    operatorNodes.Add(new WriteNode()
+                    res.Add(new WriteNode()
                     {
                         Vars = GetVarNode(node.Childs![2])
                     });
@@ -112,25 +92,25 @@ public class TreeBuilder
                 else if (nameNodes.Contains("if") && nameNodes.Contains("else"))
                 {
                     var predicate = ExpressionToTreePriority.Convert(GetValueInLeaf(node.Childs![2]));
-                    var left = GetStatement(node.Childs![5]);
-                    var right = GetStatement(node.Childs![7]);
+                    var trueBranch = GetStatement(node.Childs![5]);
+                    var falseBranch = GetStatement(node.Childs![7]);
 
-                    operatorNodes.Add(new IfElseNode()
+                    res.Add(new IfElseNode()
                     {
                         Predicate = predicate,
-                        FalseBranch = left,
-                        TrueBranch = right,
+                        FalseBranch = falseBranch,
+                        TrueBranch = trueBranch,
                     });
                 }
             }
+
             else if (node.Value != "<description_calculations>")
             {
-                if (node.Value == "<list_assignments>") return;
-                node.Childs?.ForEach(child => GetOperatorsInternal(child, operatorNodes));
+                node.Childs?.ForEach(child => GetAssignmentsAndOperatorsInternal(child, res));
             }
         }
 
-        GetOperatorsInternal(node, res);
+        GetAssignmentsAndOperatorsInternal(node, res);
         return res;
     }
 
@@ -139,13 +119,7 @@ public class TreeBuilder
     // <list_actions> ::= <list_operators> | <list_operators> <list_actions>
     private ScopeNode GetStatement(TreeNode node)
     {
-        var statements = new List<StatemantNode>();
-
-        var assignments = GetAssigments(node.Childs![1]);
-        var operators = GetOperators(node.Childs![1]);
-
-        statements.AddRange(assignments);
-        statements.AddRange(operators);
+        var statements = GetAssignmentsAndOperators(node.Childs![1]);
 
         return new ScopeNode() { Statements = statements };
     }

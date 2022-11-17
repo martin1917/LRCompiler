@@ -36,10 +36,10 @@ public class Program
 
         @"
             VAR
-                x, y, z, d, w: LOGICAL;
+                x, y, z, w, resone, restwo, resthree, resfour, resfive: LOGICAL;
 
             BEGIN
-                READ(x, y, z, d, w);
+                READ(x, y, z, w);
 
                 resone = x OR y AND z;
                 restwo = (x OR y) AND z;
@@ -48,6 +48,8 @@ public class Program
                 resfour = (x OR y) AND (z OR w);
 
                 resfive = NOT x OR y EQU z OR w;
+
+                WRITE(resone, restwo, resthree, resfour, resfive);
             END
         ",
 
@@ -102,7 +104,9 @@ public class Program
 
         var cst = parser.Parse(lexems);
         var builder = new TreeBuilder(cst);
-        var ast = builder.BuildAST(); 
-        Utils.SaveInJson(ast, "C:\\Users\\marti\\OneDrive\\Desktop\\tree.json");
+        var ast = builder.BuildAST();
+
+        var worker = new ASTWorker(ast);
+        worker.Proccess();
     }
 }
