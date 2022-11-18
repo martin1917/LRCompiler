@@ -20,8 +20,7 @@ public class LRTableCell
         if (obj is not LRTableCell item) return false;
 
         return StateNumber == item.StateNumber
-            && InputingLexem == item.InputingLexem
-            && ParserOperation == item.ParserOperation;
+            && InputingLexem == item.InputingLexem;
     }
 
     public override int GetHashCode()
