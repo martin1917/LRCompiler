@@ -1,0 +1,1294 @@
+{
+  "Value": "<program>",
+  "Childs": [
+    {
+      "Value": "<variable_declaration>",
+      "Childs": [
+        {
+          "Value": "var"
+        },
+        {
+          "Value": "<list_variables>",
+          "Childs": [
+            {
+              "Value": "ident",
+              "Childs": [
+                {
+                  "Value": "x"
+                }
+              ]
+            },
+            {
+              "Value": ","
+            },
+            {
+              "Value": "<list_variables>",
+              "Childs": [
+                {
+                  "Value": "ident",
+                  "Childs": [
+                    {
+                      "Value": "y"
+                    }
+                  ]
+                },
+                {
+                  "Value": ","
+                },
+                {
+                  "Value": "<list_variables>",
+                  "Childs": [
+                    {
+                      "Value": "ident",
+                      "Childs": [
+                        {
+                          "Value": "z"
+                        }
+                      ]
+                    },
+                    {
+                      "Value": ","
+                    },
+                    {
+                      "Value": "<list_variables>",
+                      "Childs": [
+                        {
+                          "Value": "ident",
+                          "Childs": [
+                            {
+                              "Value": "w"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Value": ":"
+        },
+        {
+          "Value": "logical"
+        },
+        {
+          "Value": ";"
+        }
+      ]
+    },
+    {
+      "Value": "<description_calculations>",
+      "Childs": [
+        {
+          "Value": "begin"
+        },
+        {
+          "Value": "<list_actions>",
+          "Childs": [
+            {
+              "Value": "<list_operators>",
+              "Childs": [
+                {
+                  "Value": "<operator>",
+                  "Childs": [
+                    {
+                      "Value": "read"
+                    },
+                    {
+                      "Value": "("
+                    },
+                    {
+                      "Value": "<list_variables>",
+                      "Childs": [
+                        {
+                          "Value": "ident",
+                          "Childs": [
+                            {
+                              "Value": "x"
+                            }
+                          ]
+                        },
+                        {
+                          "Value": ","
+                        },
+                        {
+                          "Value": "<list_variables>",
+                          "Childs": [
+                            {
+                              "Value": "ident",
+                              "Childs": [
+                                {
+                                  "Value": "y"
+                                }
+                              ]
+                            },
+                            {
+                              "Value": ","
+                            },
+                            {
+                              "Value": "<list_variables>",
+                              "Childs": [
+                                {
+                                  "Value": "ident",
+                                  "Childs": [
+                                    {
+                                      "Value": "z"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Value": ","
+                                },
+                                {
+                                  "Value": "<list_variables>",
+                                  "Childs": [
+                                    {
+                                      "Value": "ident",
+                                      "Childs": [
+                                        {
+                                          "Value": "w"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "Value": ")"
+                    },
+                    {
+                      "Value": ";"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Value": "<list_actions>",
+              "Childs": [
+                {
+                  "Value": "<list_operators>",
+                  "Childs": [
+                    {
+                      "Value": "<operator>",
+                      "Childs": [
+                        {
+                          "Value": "if"
+                        },
+                        {
+                          "Value": "("
+                        },
+                        {
+                          "Value": "<expr>",
+                          "Childs": [
+                            {
+                              "Value": "<unary_op>",
+                              "Childs": [
+                                {
+                                  "Value": "not"
+                                }
+                              ]
+                            },
+                            {
+                              "Value": "<sub_expr>",
+                              "Childs": [
+                                {
+                                  "Value": "<sub_expr>",
+                                  "Childs": [
+                                    {
+                                      "Value": "("
+                                    },
+                                    {
+                                      "Value": "<expr>",
+                                      "Childs": [
+                                        {
+                                          "Value": "<sub_expr>",
+                                          "Childs": [
+                                            {
+                                              "Value": "<sub_expr>",
+                                              "Childs": [
+                                                {
+                                                  "Value": "<operand>",
+                                                  "Childs": [
+                                                    {
+                                                      "Value": "ident",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "x"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Value": "<bin_op>",
+                                              "Childs": [
+                                                {
+                                                  "Value": "or"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Value": "<sub_expr>",
+                                              "Childs": [
+                                                {
+                                                  "Value": "<operand>",
+                                                  "Childs": [
+                                                    {
+                                                      "Value": "ident",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "y"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Value": ")"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Value": "<bin_op>",
+                                  "Childs": [
+                                    {
+                                      "Value": "and"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Value": "<sub_expr>",
+                                  "Childs": [
+                                    {
+                                      "Value": "<operand>",
+                                      "Childs": [
+                                        {
+                                          "Value": "ident",
+                                          "Childs": [
+                                            {
+                                              "Value": "z"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "Value": ")"
+                        },
+                        {
+                          "Value": "then"
+                        },
+                        {
+                          "Value": "<description_calculations>",
+                          "Childs": [
+                            {
+                              "Value": "begin"
+                            },
+                            {
+                              "Value": "<list_actions>",
+                              "Childs": [
+                                {
+                                  "Value": "<list_operators>",
+                                  "Childs": [
+                                    {
+                                      "Value": "<operator>",
+                                      "Childs": [
+                                        {
+                                          "Value": "write"
+                                        },
+                                        {
+                                          "Value": "("
+                                        },
+                                        {
+                                          "Value": "<list_variables>",
+                                          "Childs": [
+                                            {
+                                              "Value": "ident",
+                                              "Childs": [
+                                                {
+                                                  "Value": "z"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Value": ","
+                                            },
+                                            {
+                                              "Value": "<list_variables>",
+                                              "Childs": [
+                                                {
+                                                  "Value": "ident",
+                                                  "Childs": [
+                                                    {
+                                                      "Value": "w"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Value": ")"
+                                        },
+                                        {
+                                          "Value": ";"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Value": "<list_actions>",
+                                  "Childs": [
+                                    {
+                                      "Value": "<list_assignments>",
+                                      "Childs": [
+                                        {
+                                          "Value": "<assignment>",
+                                          "Childs": [
+                                            {
+                                              "Value": "ident",
+                                              "Childs": [
+                                                {
+                                                  "Value": "z"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Value": "="
+                                            },
+                                            {
+                                              "Value": "<expr>",
+                                              "Childs": [
+                                                {
+                                                  "Value": "<unary_op>",
+                                                  "Childs": [
+                                                    {
+                                                      "Value": "not"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "Value": "<sub_expr>",
+                                                  "Childs": [
+                                                    {
+                                                      "Value": "("
+                                                    },
+                                                    {
+                                                      "Value": "<expr>",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "<sub_expr>",
+                                                          "Childs": [
+                                                            {
+                                                              "Value": "<sub_expr>",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "("
+                                                                },
+                                                                {
+                                                                  "Value": "<expr>",
+                                                                  "Childs": [
+                                                                    {
+                                                                      "Value": "<sub_expr>",
+                                                                      "Childs": [
+                                                                        {
+                                                                          "Value": "<sub_expr>",
+                                                                          "Childs": [
+                                                                            {
+                                                                              "Value": "<operand>",
+                                                                              "Childs": [
+                                                                                {
+                                                                                  "Value": "ident",
+                                                                                  "Childs": [
+                                                                                    {
+                                                                                      "Value": "x"
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "Value": "<bin_op>",
+                                                                          "Childs": [
+                                                                            {
+                                                                              "Value": "equ"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "Value": "<sub_expr>",
+                                                                          "Childs": [
+                                                                            {
+                                                                              "Value": "<operand>",
+                                                                              "Childs": [
+                                                                                {
+                                                                                  "Value": "ident",
+                                                                                  "Childs": [
+                                                                                    {
+                                                                                      "Value": "z"
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "Value": ")"
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "Value": "<bin_op>",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "and"
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "Value": "<sub_expr>",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "<operand>",
+                                                                  "Childs": [
+                                                                    {
+                                                                      "Value": "ident",
+                                                                      "Childs": [
+                                                                        {
+                                                                          "Value": "w"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Value": ")"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Value": ";"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Value": "end"
+                            }
+                          ]
+                        },
+                        {
+                          "Value": "else"
+                        },
+                        {
+                          "Value": "<description_calculations>",
+                          "Childs": [
+                            {
+                              "Value": "begin"
+                            },
+                            {
+                              "Value": "<list_actions>",
+                              "Childs": [
+                                {
+                                  "Value": "<list_assignments>",
+                                  "Childs": [
+                                    {
+                                      "Value": "<assignment>",
+                                      "Childs": [
+                                        {
+                                          "Value": "ident",
+                                          "Childs": [
+                                            {
+                                              "Value": "x"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Value": "="
+                                        },
+                                        {
+                                          "Value": "<expr>",
+                                          "Childs": [
+                                            {
+                                              "Value": "<sub_expr>",
+                                              "Childs": [
+                                                {
+                                                  "Value": "<sub_expr>",
+                                                  "Childs": [
+                                                    {
+                                                      "Value": "<sub_expr>",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "<operand>",
+                                                          "Childs": [
+                                                            {
+                                                              "Value": "ident",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "w"
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Value": "<bin_op>",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "or"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Value": "<sub_expr>",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "<operand>",
+                                                          "Childs": [
+                                                            {
+                                                              "Value": "ident",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "z"
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "Value": "<bin_op>",
+                                                  "Childs": [
+                                                    {
+                                                      "Value": "and"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "Value": "<sub_expr>",
+                                                  "Childs": [
+                                                    {
+                                                      "Value": "<operand>",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "ident",
+                                                          "Childs": [
+                                                            {
+                                                              "Value": "x"
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Value": ";"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Value": "<list_actions>",
+                                  "Childs": [
+                                    {
+                                      "Value": "<list_assignments>",
+                                      "Childs": [
+                                        {
+                                          "Value": "<assignment>",
+                                          "Childs": [
+                                            {
+                                              "Value": "ident",
+                                              "Childs": [
+                                                {
+                                                  "Value": "w"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Value": "="
+                                            },
+                                            {
+                                              "Value": "<expr>",
+                                              "Childs": [
+                                                {
+                                                  "Value": "<sub_expr>",
+                                                  "Childs": [
+                                                    {
+                                                      "Value": "<sub_expr>",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "<sub_expr>",
+                                                          "Childs": [
+                                                            {
+                                                              "Value": "<operand>",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "ident",
+                                                                  "Childs": [
+                                                                    {
+                                                                      "Value": "x"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "Value": "<bin_op>",
+                                                          "Childs": [
+                                                            {
+                                                              "Value": "equ"
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "Value": "<sub_expr>",
+                                                          "Childs": [
+                                                            {
+                                                              "Value": "<operand>",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "ident",
+                                                                  "Childs": [
+                                                                    {
+                                                                      "Value": "x"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Value": "<bin_op>",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "and"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Value": "<sub_expr>",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "("
+                                                        },
+                                                        {
+                                                          "Value": "<expr>",
+                                                          "Childs": [
+                                                            {
+                                                              "Value": "<unary_op>",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "not"
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "Value": "<sub_expr>",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "<operand>",
+                                                                  "Childs": [
+                                                                    {
+                                                                      "Value": "ident",
+                                                                      "Childs": [
+                                                                        {
+                                                                          "Value": "x"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "Value": ")"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "Value": ";"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Value": "<list_actions>",
+                                      "Childs": [
+                                        {
+                                          "Value": "<list_operators>",
+                                          "Childs": [
+                                            {
+                                              "Value": "<operator>",
+                                              "Childs": [
+                                                {
+                                                  "Value": "read"
+                                                },
+                                                {
+                                                  "Value": "("
+                                                },
+                                                {
+                                                  "Value": "<list_variables>",
+                                                  "Childs": [
+                                                    {
+                                                      "Value": "ident",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "z"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Value": ","
+                                                    },
+                                                    {
+                                                      "Value": "<list_variables>",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "ident",
+                                                          "Childs": [
+                                                            {
+                                                              "Value": "x"
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "Value": ")"
+                                                },
+                                                {
+                                                  "Value": ";"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Value": "<list_actions>",
+                                          "Childs": [
+                                            {
+                                              "Value": "<list_operators>",
+                                              "Childs": [
+                                                {
+                                                  "Value": "<operator>",
+                                                  "Childs": [
+                                                    {
+                                                      "Value": "if"
+                                                    },
+                                                    {
+                                                      "Value": "("
+                                                    },
+                                                    {
+                                                      "Value": "<expr>",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "<sub_expr>",
+                                                          "Childs": [
+                                                            {
+                                                              "Value": "<sub_expr>",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "<operand>",
+                                                                  "Childs": [
+                                                                    {
+                                                                      "Value": "ident",
+                                                                      "Childs": [
+                                                                        {
+                                                                          "Value": "z"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "Value": "<bin_op>",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "equ"
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "Value": "<sub_expr>",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "<operand>",
+                                                                  "Childs": [
+                                                                    {
+                                                                      "Value": "ident",
+                                                                      "Childs": [
+                                                                        {
+                                                                          "Value": "x"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Value": ")"
+                                                    },
+                                                    {
+                                                      "Value": "then"
+                                                    },
+                                                    {
+                                                      "Value": "<description_calculations>",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "begin"
+                                                        },
+                                                        {
+                                                          "Value": "<list_actions>",
+                                                          "Childs": [
+                                                            {
+                                                              "Value": "<list_operators>",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "<operator>",
+                                                                  "Childs": [
+                                                                    {
+                                                                      "Value": "read"
+                                                                    },
+                                                                    {
+                                                                      "Value": "("
+                                                                    },
+                                                                    {
+                                                                      "Value": "<list_variables>",
+                                                                      "Childs": [
+                                                                        {
+                                                                          "Value": "ident",
+                                                                          "Childs": [
+                                                                            {
+                                                                              "Value": "w"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "Value": ")"
+                                                                    },
+                                                                    {
+                                                                      "Value": ";"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "Value": "<list_actions>",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "<list_operators>",
+                                                                  "Childs": [
+                                                                    {
+                                                                      "Value": "<operator>",
+                                                                      "Childs": [
+                                                                        {
+                                                                          "Value": "write"
+                                                                        },
+                                                                        {
+                                                                          "Value": "("
+                                                                        },
+                                                                        {
+                                                                          "Value": "<list_variables>",
+                                                                          "Childs": [
+                                                                            {
+                                                                              "Value": "ident",
+                                                                              "Childs": [
+                                                                                {
+                                                                                  "Value": "w"
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "Value": ")"
+                                                                        },
+                                                                        {
+                                                                          "Value": ";"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "Value": "end"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Value": "else"
+                                                    },
+                                                    {
+                                                      "Value": "<description_calculations>",
+                                                      "Childs": [
+                                                        {
+                                                          "Value": "begin"
+                                                        },
+                                                        {
+                                                          "Value": "<list_actions>",
+                                                          "Childs": [
+                                                            {
+                                                              "Value": "<list_assignments>",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "<assignment>",
+                                                                  "Childs": [
+                                                                    {
+                                                                      "Value": "ident",
+                                                                      "Childs": [
+                                                                        {
+                                                                          "Value": "w"
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "Value": "="
+                                                                    },
+                                                                    {
+                                                                      "Value": "<expr>",
+                                                                      "Childs": [
+                                                                        {
+                                                                          "Value": "<sub_expr>",
+                                                                          "Childs": [
+                                                                            {
+                                                                              "Value": "<sub_expr>",
+                                                                              "Childs": [
+                                                                                {
+                                                                                  "Value": "<sub_expr>",
+                                                                                  "Childs": [
+                                                                                    {
+                                                                                      "Value": "<sub_expr>",
+                                                                                      "Childs": [
+                                                                                        {
+                                                                                          "Value": "<operand>",
+                                                                                          "Childs": [
+                                                                                            {
+                                                                                              "Value": "const",
+                                                                                              "Childs": [
+                                                                                                {
+                                                                                                  "Value": "1"
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    },
+                                                                                    {
+                                                                                      "Value": "<bin_op>",
+                                                                                      "Childs": [
+                                                                                        {
+                                                                                          "Value": "or"
+                                                                                        }
+                                                                                      ]
+                                                                                    },
+                                                                                    {
+                                                                                      "Value": "<sub_expr>",
+                                                                                      "Childs": [
+                                                                                        {
+                                                                                          "Value": "<operand>",
+                                                                                          "Childs": [
+                                                                                            {
+                                                                                              "Value": "ident",
+                                                                                              "Childs": [
+                                                                                                {
+                                                                                                  "Value": "x"
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                },
+                                                                                {
+                                                                                  "Value": "<bin_op>",
+                                                                                  "Childs": [
+                                                                                    {
+                                                                                      "Value": "and"
+                                                                                    }
+                                                                                  ]
+                                                                                },
+                                                                                {
+                                                                                  "Value": "<sub_expr>",
+                                                                                  "Childs": [
+                                                                                    {
+                                                                                      "Value": "<operand>",
+                                                                                      "Childs": [
+                                                                                        {
+                                                                                          "Value": "ident",
+                                                                                          "Childs": [
+                                                                                            {
+                                                                                              "Value": "z"
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "Value": "<bin_op>",
+                                                                              "Childs": [
+                                                                                {
+                                                                                  "Value": "and"
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "Value": "<sub_expr>",
+                                                                              "Childs": [
+                                                                                {
+                                                                                  "Value": "<operand>",
+                                                                                  "Childs": [
+                                                                                    {
+                                                                                      "Value": "const",
+                                                                                      "Childs": [
+                                                                                        {
+                                                                                          "Value": "0"
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "Value": ";"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "Value": "<list_actions>",
+                                                              "Childs": [
+                                                                {
+                                                                  "Value": "<list_operators>",
+                                                                  "Childs": [
+                                                                    {
+                                                                      "Value": "<operator>",
+                                                                      "Childs": [
+                                                                        {
+                                                                          "Value": "write"
+                                                                        },
+                                                                        {
+                                                                          "Value": "("
+                                                                        },
+                                                                        {
+                                                                          "Value": "<list_variables>",
+                                                                          "Childs": [
+                                                                            {
+                                                                              "Value": "ident",
+                                                                              "Childs": [
+                                                                                {
+                                                                                  "Value": "z"
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "Value": ","
+                                                                            },
+                                                                            {
+                                                                              "Value": "<list_variables>",
+                                                                              "Childs": [
+                                                                                {
+                                                                                  "Value": "ident",
+                                                                                  "Childs": [
+                                                                                    {
+                                                                                      "Value": "w"
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "Value": ")"
+                                                                        },
+                                                                        {
+                                                                          "Value": ";"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "Value": "<list_actions>",
+                                                                  "Childs": [
+                                                                    {
+                                                                      "Value": "<list_operators>",
+                                                                      "Childs": [
+                                                                        {
+                                                                          "Value": "<operator>",
+                                                                          "Childs": [
+                                                                            {
+                                                                              "Value": "read"
+                                                                            },
+                                                                            {
+                                                                              "Value": "("
+                                                                            },
+                                                                            {
+                                                                              "Value": "<list_variables>",
+                                                                              "Childs": [
+                                                                                {
+                                                                                  "Value": "ident",
+                                                                                  "Childs": [
+                                                                                    {
+                                                                                      "Value": "w"
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "Value": ")"
+                                                                            },
+                                                                            {
+                                                                              "Value": ";"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "Value": "end"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "Value": "end_if"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Value": "end"
+                            }
+                          ]
+                        },
+                        {
+                          "Value": "end_if"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Value": "end"
+        }
+      ]
+    }
+  ]
+}

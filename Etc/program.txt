@@ -1,0 +1,32 @@
+VAR
+	x, y, z, w: LOGICAL;
+
+BEGIN
+	READ(x, y, z, w);
+
+	IF (NOT (x OR y) AND z) THEN
+		BEGIN
+			WRITE(z, w);
+			z = NOT ((x EQU z) AND w);
+		END
+	ELSE
+		BEGIN
+			x = w OR z AND x;
+			w = x EQU x AND (NOT x);
+			READ(z, x);
+
+			IF (z EQU x) THEN
+				BEGIN
+					READ(w);
+					WRITE(w);
+				END
+			ELSE
+				BEGIN
+					w = 1 OR x AND z AND 0;
+					WRITE(z,w);
+					READ(w);
+				END
+			END_IF
+		END
+	END_IF
+END

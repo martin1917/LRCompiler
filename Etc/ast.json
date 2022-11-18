@@ -1,0 +1,323 @@
+{
+  "Vars": {
+    "Variables": [
+      {
+        "Ident": "x",
+        "Type": "VariableNode"
+      },
+      {
+        "Ident": "y",
+        "Type": "VariableNode"
+      },
+      {
+        "Ident": "z",
+        "Type": "VariableNode"
+      },
+      {
+        "Ident": "w",
+        "Type": "VariableNode"
+      }
+    ],
+    "Type": "VarNode"
+  },
+  "Body": {
+    "Statements": [
+      {
+        "Vars": {
+          "Variables": [
+            {
+              "Ident": "x",
+              "Type": "VariableNode"
+            },
+            {
+              "Ident": "y",
+              "Type": "VariableNode"
+            },
+            {
+              "Ident": "z",
+              "Type": "VariableNode"
+            },
+            {
+              "Ident": "w",
+              "Type": "VariableNode"
+            }
+          ],
+          "Type": "VarNode"
+        },
+        "Type": "ReadNode"
+      },
+      {
+        "Predicate": {
+          "Operation": "and",
+          "Left": {
+            "Operation": "not",
+            "Node": {
+              "Operation": "or",
+              "Left": {
+                "Ident": "x",
+                "Type": "VariableNode"
+              },
+              "Right": {
+                "Ident": "y",
+                "Type": "VariableNode"
+              },
+              "Type": "BinOpNode"
+            },
+            "Type": "UnaryOpNode"
+          },
+          "Right": {
+            "Ident": "z",
+            "Type": "VariableNode"
+          },
+          "Type": "BinOpNode"
+        },
+        "TrueBranch": {
+          "Statements": [
+            {
+              "Vars": {
+                "Variables": [
+                  {
+                    "Ident": "z",
+                    "Type": "VariableNode"
+                  },
+                  {
+                    "Ident": "w",
+                    "Type": "VariableNode"
+                  }
+                ],
+                "Type": "VarNode"
+              },
+              "Type": "WriteNode"
+            },
+            {
+              "Variable": {
+                "Ident": "z",
+                "Type": "VariableNode"
+              },
+              "Expression": {
+                "Operation": "not",
+                "Node": {
+                  "Operation": "and",
+                  "Left": {
+                    "Operation": "equ",
+                    "Left": {
+                      "Ident": "x",
+                      "Type": "VariableNode"
+                    },
+                    "Right": {
+                      "Ident": "z",
+                      "Type": "VariableNode"
+                    },
+                    "Type": "BinOpNode"
+                  },
+                  "Right": {
+                    "Ident": "w",
+                    "Type": "VariableNode"
+                  },
+                  "Type": "BinOpNode"
+                },
+                "Type": "UnaryOpNode"
+              },
+              "Type": "AssignmentNode"
+            }
+          ],
+          "Type": "ScopeNode"
+        },
+        "FalseBranch": {
+          "Statements": [
+            {
+              "Variable": {
+                "Ident": "x",
+                "Type": "VariableNode"
+              },
+              "Expression": {
+                "Operation": "or",
+                "Left": {
+                  "Ident": "w",
+                  "Type": "VariableNode"
+                },
+                "Right": {
+                  "Operation": "and",
+                  "Left": {
+                    "Ident": "z",
+                    "Type": "VariableNode"
+                  },
+                  "Right": {
+                    "Ident": "x",
+                    "Type": "VariableNode"
+                  },
+                  "Type": "BinOpNode"
+                },
+                "Type": "BinOpNode"
+              },
+              "Type": "AssignmentNode"
+            },
+            {
+              "Variable": {
+                "Ident": "w",
+                "Type": "VariableNode"
+              },
+              "Expression": {
+                "Operation": "equ",
+                "Left": {
+                  "Ident": "x",
+                  "Type": "VariableNode"
+                },
+                "Right": {
+                  "Operation": "and",
+                  "Left": {
+                    "Ident": "x",
+                    "Type": "VariableNode"
+                  },
+                  "Right": {
+                    "Operation": "not",
+                    "Node": {
+                      "Ident": "x",
+                      "Type": "VariableNode"
+                    },
+                    "Type": "UnaryOpNode"
+                  },
+                  "Type": "BinOpNode"
+                },
+                "Type": "BinOpNode"
+              },
+              "Type": "AssignmentNode"
+            },
+            {
+              "Vars": {
+                "Variables": [
+                  {
+                    "Ident": "z",
+                    "Type": "VariableNode"
+                  },
+                  {
+                    "Ident": "x",
+                    "Type": "VariableNode"
+                  }
+                ],
+                "Type": "VarNode"
+              },
+              "Type": "ReadNode"
+            },
+            {
+              "Predicate": {
+                "Operation": "equ",
+                "Left": {
+                  "Ident": "z",
+                  "Type": "VariableNode"
+                },
+                "Right": {
+                  "Ident": "x",
+                  "Type": "VariableNode"
+                },
+                "Type": "BinOpNode"
+              },
+              "TrueBranch": {
+                "Statements": [
+                  {
+                    "Vars": {
+                      "Variables": [
+                        {
+                          "Ident": "w",
+                          "Type": "VariableNode"
+                        }
+                      ],
+                      "Type": "VarNode"
+                    },
+                    "Type": "ReadNode"
+                  },
+                  {
+                    "Vars": {
+                      "Variables": [
+                        {
+                          "Ident": "w",
+                          "Type": "VariableNode"
+                        }
+                      ],
+                      "Type": "VarNode"
+                    },
+                    "Type": "WriteNode"
+                  }
+                ],
+                "Type": "ScopeNode"
+              },
+              "FalseBranch": {
+                "Statements": [
+                  {
+                    "Variable": {
+                      "Ident": "w",
+                      "Type": "VariableNode"
+                    },
+                    "Expression": {
+                      "Operation": "or",
+                      "Left": {
+                        "Value": true,
+                        "Type": "ConstNode"
+                      },
+                      "Right": {
+                        "Operation": "and",
+                        "Left": {
+                          "Operation": "and",
+                          "Left": {
+                            "Ident": "x",
+                            "Type": "VariableNode"
+                          },
+                          "Right": {
+                            "Ident": "z",
+                            "Type": "VariableNode"
+                          },
+                          "Type": "BinOpNode"
+                        },
+                        "Right": {
+                          "Value": false,
+                          "Type": "ConstNode"
+                        },
+                        "Type": "BinOpNode"
+                      },
+                      "Type": "BinOpNode"
+                    },
+                    "Type": "AssignmentNode"
+                  },
+                  {
+                    "Vars": {
+                      "Variables": [
+                        {
+                          "Ident": "z",
+                          "Type": "VariableNode"
+                        },
+                        {
+                          "Ident": "w",
+                          "Type": "VariableNode"
+                        }
+                      ],
+                      "Type": "VarNode"
+                    },
+                    "Type": "WriteNode"
+                  },
+                  {
+                    "Vars": {
+                      "Variables": [
+                        {
+                          "Ident": "w",
+                          "Type": "VariableNode"
+                        }
+                      ],
+                      "Type": "VarNode"
+                    },
+                    "Type": "ReadNode"
+                  }
+                ],
+                "Type": "ScopeNode"
+              },
+              "Type": "IfElseNode"
+            }
+          ],
+          "Type": "ScopeNode"
+        },
+        "Type": "IfElseNode"
+      }
+    ],
+    "Type": "ScopeNode"
+  },
+  "Type": "ProgramNode"
+}

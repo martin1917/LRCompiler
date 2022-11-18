@@ -6,8 +6,19 @@ using System.Data;
 namespace LRv2;
 
 public static class Utils
-{    
-    public static void SaveInJson<T>(T obj, string path) where T : class
+{
+    private const string PATH = "../../../../Etc";
+    private const string JSON_EXT = "json";
+    private const string EXCEL_EXT = "xlsx";
+
+    public static string GetAllTextFromFile(string fileName)
+    {
+        using var reader = new StreamReader($"{PATH}/{fileName}");
+        var code = reader.ReadToEnd();
+        return code;
+    }
+
+    public static void SaveInJson<T>(T obj, string fileName) where T : class
     {
         var settings = new JsonSerializerSettings
         {
@@ -17,11 +28,11 @@ public static class Utils
         };
 
         string json = JsonConvert.SerializeObject(obj, settings);
-        using var writer = new StreamWriter(path, false);
+        using var writer = new StreamWriter($"{PATH}/{fileName}.{JSON_EXT}", false);
         writer.Write(json);
     }
 
-    public static void SaveTableInExcel(LRTable table, string path)
+    public static void SaveTableInExcel(LRTable table, string fileName)
     {
         var uniqueNumberStates = table.GetUniqueNumberStates();
         var uniqueLexems = table.GetUniqueLexems();
@@ -75,6 +86,6 @@ public static class Utils
         var endCol = initCol + dataTable.Columns.Count;
         sheet.Cells[initRow, initCol, endRow, endCol].AutoFitColumns();
 
-        File.WriteAllBytes(path, package.GetAsByteArray());
+        File.WriteAllBytes($"{PATH}/{fileName}.{EXCEL_EXT}", package.GetAsByteArray());
     }
 }
