@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Xml.Linq;
 
 namespace LRv2.LexicalAnalyzer;
 
@@ -18,30 +19,30 @@ public class TypeTerminal
         return new List<TypeTerminal>(fields!);
     }
 
-    public static readonly TypeTerminal Var       =  new("var", "VAR");
-    public static readonly TypeTerminal Ident     =  new("ident", "\\b[a-z]{1,11}\\b");
-    public static readonly TypeTerminal Const     =  new("const", "[01]");
-    public static readonly TypeTerminal Comma     =  new(",", ",");
-    public static readonly TypeTerminal Colon     =  new(":", ":");
-    public static readonly TypeTerminal Logical   =  new("logical", "LOGICAL");
-    public static readonly TypeTerminal Semicolon =  new(";", ";");
-    public static readonly TypeTerminal Begin     =  new("begin", "BEGIN");
-    public static readonly TypeTerminal End       =  new("end", "\\bEND\\b");
-    public static readonly TypeTerminal Space     =  new("space", "[ \\n\\t\\r]");
-    public static readonly TypeTerminal Assign    =  new("=", "=");
-    public static readonly TypeTerminal Lparam    =  new("(", "\\(");
-    public static readonly TypeTerminal Rparam    =  new(")", "\\)");
-    public static readonly TypeTerminal If        =  new("if", "IF");
-    public static readonly TypeTerminal EndIf     =  new("end_if", "END_IF");
-    public static readonly TypeTerminal Then      =  new("then", "THEN");
-    public static readonly TypeTerminal Else      =  new("else", "ELSE");
-    public static readonly TypeTerminal Read      =  new("read", "READ");
-    public static readonly TypeTerminal Write     =  new("write", "WRITE");
-    public static readonly TypeTerminal Not       =  new("not", "NOT");
-    public static readonly TypeTerminal And       =  new("and", "AND");
-    public static readonly TypeTerminal Or        =  new("or", "OR");
-    public static readonly TypeTerminal Equ       =  new("equ", "EQU");
-    public static readonly TypeTerminal Eof       =  new("eof", "\\$");
+    public static readonly TypeTerminal Var       = new(name: "var",     regex: @"VAR");
+    public static readonly TypeTerminal Ident     = new(name: "ident",   regex: @"\b[a-z]{1,11}\b");
+    public static readonly TypeTerminal Const     = new(name: "const",   regex: @"[01]");
+    public static readonly TypeTerminal Comma     = new(name: ",",       regex: @",");
+    public static readonly TypeTerminal Colon     = new(name: ":",       regex: @":");
+    public static readonly TypeTerminal Logical   = new(name: "logical", regex: @"LOGICAL");
+    public static readonly TypeTerminal Semicolon = new(name: ";",       regex: @";");
+    public static readonly TypeTerminal Begin     = new(name: "begin",   regex: @"BEGIN");
+    public static readonly TypeTerminal End       = new(name: "end",     regex: @"\bEND\b");
+    public static readonly TypeTerminal Space     = new(name: "space",   regex: @"[ \n\t\r]");
+    public static readonly TypeTerminal Assign    = new(name: "=",       regex: @"=");
+    public static readonly TypeTerminal Lparam    = new(name: "(",       regex: @"\(");
+    public static readonly TypeTerminal Rparam    = new(name: ")",       regex: @"\)");
+    public static readonly TypeTerminal If        = new(name: "if",      regex: @"IF");
+    public static readonly TypeTerminal EndIf     = new(name: "end_if",  regex: @"END_IF");
+    public static readonly TypeTerminal Then      = new(name: "then",    regex: @"THEN");
+    public static readonly TypeTerminal Else      = new(name: "else",    regex: @"ELSE");
+    public static readonly TypeTerminal Read      = new(name: "read",    regex: @"READ");
+    public static readonly TypeTerminal Write     = new(name: "write",   regex: @"WRITE");
+    public static readonly TypeTerminal Not       = new(name: "not",     regex: @"NOT");
+    public static readonly TypeTerminal And       = new(name: "and",     regex: @"AND");
+    public static readonly TypeTerminal Or        = new(name: "or",      regex: @"OR");
+    public static readonly TypeTerminal Equ       = new(name: "equ",     regex: @"EQU");
+    public static readonly TypeTerminal Eof       = new(name: "eof",     regex: @"\$");
 
     public string Name { get; }
 
@@ -63,9 +64,9 @@ public class TypeTerminal
         return Name;
     }
 
-    private TypeTerminal(string nameTerminal, string regex)
+    private TypeTerminal(string name, string regex)
     {
-        Name = nameTerminal;
+        Name = name;
         Regex = regex;
     }
 }

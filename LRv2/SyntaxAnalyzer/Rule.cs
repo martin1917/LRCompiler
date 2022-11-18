@@ -21,6 +21,7 @@ public class Rule
     {
         if (obj is not Rule rule) return false;
 
+        if (Left != rule.Left) return false;
         if (Right.Length != rule.Right.Length) return false;
         for (int i = 0; i < Right.Length; i++)
         {
