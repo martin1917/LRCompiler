@@ -94,7 +94,7 @@ public class ExpressionToTreePriority
             {
                 stack.Push(new ConstNode()
                 {
-                    Value = bool.Parse(part)
+                    Value = part == "1"
                 });
 
                 continue;

@@ -89,14 +89,13 @@ public class Program
 
     public static void Main(string[] args)
     {
-        Test(1);
+        using var reader = new StreamReader("C:\\Users\\marti\\OneDrive\\Desktop\\program.txt");
+        var code = reader.ReadToEnd();
+        Test(code);
     }
 
-    private static void Test(int index)
+    private static void Test(string code)
     {
-        // текст программы
-        var code = examples[index];
-
         // лексер
         var lexer = new Lexer(code);
 

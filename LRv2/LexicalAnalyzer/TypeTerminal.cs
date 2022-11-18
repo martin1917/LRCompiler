@@ -19,7 +19,7 @@ public class TypeTerminal
     }
 
     public static readonly TypeTerminal Var       =  new("var", "VAR");
-    public static readonly TypeTerminal Ident     =  new("ident", "[a-z]{1,11}");
+    public static readonly TypeTerminal Ident     =  new("ident", "\\b[a-z]{1,11}\\b");
     public static readonly TypeTerminal Const     =  new("const", "[01]");
     public static readonly TypeTerminal Comma     =  new(",", ",");
     public static readonly TypeTerminal Colon     =  new(":", ":");
