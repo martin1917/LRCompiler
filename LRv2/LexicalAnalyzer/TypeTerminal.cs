@@ -26,12 +26,13 @@ public class TypeTerminal
     public static readonly TypeTerminal Logical   =  new("logical", "LOGICAL");
     public static readonly TypeTerminal Semicolon =  new(";", ";");
     public static readonly TypeTerminal Begin     =  new("begin", "BEGIN");
-    public static readonly TypeTerminal End       =  new("end", "END");
+    public static readonly TypeTerminal End       =  new("end", "\\bEND\\b");
     public static readonly TypeTerminal Space     =  new("space", "[ \\n\\t\\r]");
     public static readonly TypeTerminal Assign    =  new("=", "=");
     public static readonly TypeTerminal Lparam    =  new("(", "\\(");
     public static readonly TypeTerminal Rparam    =  new(")", "\\)");
     public static readonly TypeTerminal If        =  new("if", "IF");
+    public static readonly TypeTerminal EndIf     =  new("end_if", "END_IF");
     public static readonly TypeTerminal Then      =  new("then", "THEN");
     public static readonly TypeTerminal Else      =  new("else", "ELSE");
     public static readonly TypeTerminal Read      =  new("read", "READ");

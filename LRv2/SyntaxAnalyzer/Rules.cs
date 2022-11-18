@@ -25,7 +25,7 @@ public static class Rules
 
         new Rule("<operator>", new string[]{ "read", "(", "<list_variables>", ")", ";" }),
         new Rule("<operator>", new string[]{ "write", "(", "<list_variables>", ")", ";" }),
-        new Rule("<operator>", new string[]{ "if", "(", "<expr>", ")", "then", "<description_calculations>", "else", "<description_calculations>" }),
+        new Rule("<operator>", new string[]{ "if", "(", "<expr>", ")", "then", "<description_calculations>", "else", "<description_calculations>", "end_if" }),
 
         new Rule("<list_assignments>", new string[]{ "<assignment>" }),
         new Rule("<list_assignments>", new string[]{ "<assignment>", "<list_assignments>" }),

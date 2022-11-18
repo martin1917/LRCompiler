@@ -24,7 +24,7 @@ public class ExpressionToTreePriority
 
         foreach (var symbol in symbols)
         {
-            if (Regex.IsMatch(symbol, TypeTerminal.Ident.Regex)
+            if ((Regex.IsMatch(symbol, TypeTerminal.Ident.Regex) || Regex.IsMatch(symbol, TypeTerminal.Const.Regex))
                 && !Consts.IsKeyWord(symbol))
             {
                 result += $"{symbol} ";
