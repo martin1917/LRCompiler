@@ -2,5 +2,10 @@
 
 public class VariableNode : BaseNode
 {
-    public string Ident { get; set; }
+    public string Ident { get; }
+
+	public VariableNode(string ident)
+	{
+		Ident = ident;
+	}
 }

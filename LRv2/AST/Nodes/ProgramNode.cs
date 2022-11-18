@@ -2,7 +2,13 @@
 
 public class ProgramNode : BaseNode
 {
-    public VarNode Vars { get; set; }
+    public VarNode Vars { get; }
 
-    public ScopeNode Body { get; set; }
+    public ScopeNode Body { get; }
+
+    public ProgramNode(VarNode vars, ScopeNode body)
+    {
+        Vars = vars;
+        Body = body;
+    }
 }

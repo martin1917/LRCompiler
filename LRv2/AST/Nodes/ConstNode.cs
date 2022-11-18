@@ -2,5 +2,10 @@
 
 public class ConstNode : BaseNode
 {
-    public bool Value { get; set; }
+    public bool Value { get; }
+
+	public ConstNode(bool value)
+	{
+		Value = value;
+	}
 }

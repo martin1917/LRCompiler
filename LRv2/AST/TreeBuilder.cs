@@ -15,37 +15,33 @@ public class TreeBuilder
     // <program> ::= <variable_declaration> <description_calculations>
     public ProgramNode BuildAST()
     {
-        var res = new ProgramNode()
-        {
-            Vars = GetVarNode(cst.Childs!.First().Childs![1]),
-            Body = GetStatement(cst.Childs!.Last())
-        };
-
-        return res;
+        var variableDeclaration = GetVarNode(cst.Childs!.First().Childs![1]);
+        var descriptionCalculations = GetStatement(cst.Childs!.Last());
+        var program = new ProgramNode(variableDeclaration, descriptionCalculations);
+        return program;
     }
 
     // <list_variables> ::= <variable> | <variable> , <list_variables>
     private VarNode GetVarNode(TreeNode node)
     {
-        var res = new List<string>();
+        var res = new List<VariableNode>();
 
-        void GetAllVariablesInternal(TreeNode node, List<string> idents)
+        void GetAllVariablesInternal(TreeNode node, List<VariableNode> variables)
         {
-            idents.Add(node.Childs!.First().Childs!.First().Value);
+            var nodeIdent = node.Childs!.First();
+            var ident = nodeIdent.Childs!.First().Value;
+            variables.Add(new VariableNode(ident));
+
             if (node.Childs!.Count == 3)
             {
-                GetAllVariablesInternal(node.Childs!.Last(), idents);
+                GetAllVariablesInternal(node.Childs!.Last(), variables);
             }
         }
 
         GetAllVariablesInternal(node, res);
 
-        return new VarNode()
-        {
-            Variables = res
-                .Select(s => new VariableNode() { Ident = s })
-                .ToList()
-        };
+        var listVariables = new VarNode(res);
+        return listVariables;
     }
 
     private List<StatemantNode> GetAssignmentsAndOperators(TreeNode node)
@@ -60,15 +56,9 @@ public class TreeBuilder
 
                 var nodeIdent = node.Childs!.First();
                 var ident = nodeIdent.Childs!.First().Value;
+                var variable = new VariableNode(ident);
 
-                res.Add(new AssignmentNode()
-                {
-                    Variable = new VariableNode()
-                    {
-                        Ident = ident
-                    },
-                    Expression = expr
-                });
+                res.Add(new AssignmentNode(variable, expr));
             }
 
             else if (node.Value == "<operator>")
@@ -77,17 +67,13 @@ public class TreeBuilder
 
                 if (nameNodes.Contains("read"))
                 {
-                    res.Add(new ReadNode()
-                    {
-                        Vars = GetVarNode(node.Childs![2])
-                    });
+                    var variablesInBracket = GetVarNode(node.Childs![2]);
+                    res.Add(new ReadNode(variablesInBracket));
                 }
                 else if (nameNodes.Contains("write"))
                 {
-                    res.Add(new WriteNode()
-                    {
-                        Vars = GetVarNode(node.Childs![2])
-                    });
+                    var variablesInBracket = GetVarNode(node.Childs![2]);
+                    res.Add(new WriteNode(variablesInBracket));
                 }
                 else if (nameNodes.Contains("if") && nameNodes.Contains("else"))
                 {
@@ -95,12 +81,7 @@ public class TreeBuilder
                     var trueBranch = GetStatement(node.Childs![5]);
                     var falseBranch = GetStatement(node.Childs![7]);
 
-                    res.Add(new IfElseNode()
-                    {
-                        Predicate = predicate,
-                        FalseBranch = falseBranch,
-                        TrueBranch = trueBranch,
-                    });
+                    res.Add(new IfElseNode(predicate, trueBranch, falseBranch));
                 }
             }
 
@@ -120,8 +101,7 @@ public class TreeBuilder
     private ScopeNode GetStatement(TreeNode node)
     {
         var statements = GetAssignmentsAndOperators(node.Childs![1]);
-
-        return new ScopeNode() { Statements = statements };
+        return new ScopeNode(statements);
     }
 
     private List<string> GetValueInLeaf(TreeNode node)

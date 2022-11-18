@@ -2,7 +2,13 @@
 
 public class AssignmentNode : StatemantNode
 {
-    public VariableNode Variable { get; set; }
+    public VariableNode Variable { get; }
 
-    public BaseNode Expression { get; set; }
+    public BaseNode Expression { get; }
+
+    public AssignmentNode(VariableNode variable, BaseNode expression)
+    {
+        Variable = variable;
+        Expression = expression;
+    }
 }

@@ -82,34 +82,21 @@ public class ExpressionToTreePriority
         {
             if (Regex.IsMatch(part, TypeTerminal.Ident.Regex) && !Consts.IsKeyWord(part))
             {
-                stack.Push(new VariableNode()
-                {
-                    Ident = part
-                });
-
+                stack.Push(new VariableNode(part));
                 continue;
             }
 
             if (Regex.IsMatch(part, TypeTerminal.Const.Regex))
             {
-                stack.Push(new ConstNode()
-                {
-                    Value = part == "1"
-                });
-
+                var value = part == "1";
+                stack.Push(new ConstNode(value));
                 continue;
             }
 
             if (Consts.IsUnOp(part))
             {
                 var elem = stack.Pop();
-
-                stack.Push(new UnaryOpNode()
-                {
-                    Operation = part,
-                    Node = elem
-                });
-
+                stack.Push(new UnaryOpNode(part, elem));
                 continue;
             }
 
@@ -117,13 +104,7 @@ public class ExpressionToTreePriority
             {
                 var elem2 = stack.Pop();
                 var elem1 = stack.Pop();
-
-                stack.Push(new BinOpNode()
-                {
-                    Operation = part,
-                    Left = elem1,
-                    Right = elem2
-                });
+                stack.Push(new BinOpNode(part, elem1, elem2));
             }
         }
 

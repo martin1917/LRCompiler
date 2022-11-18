@@ -2,5 +2,10 @@
 
 public class VarNode : BaseNode
 {
-    public List<VariableNode> Variables { get; set; }
+    public List<VariableNode> Variables { get; }
+
+	public VarNode(List<VariableNode> variables)
+	{
+		Variables = variables;
+	}
 }
