@@ -21,7 +21,7 @@ public class TypeTerminal
 
     public static readonly TypeTerminal Var       = new(name: "var",     regex: @"VAR");
     public static readonly TypeTerminal Ident     = new(name: "ident",   regex: @"\b[a-z]{1,11}\b");
-    public static readonly TypeTerminal Const     = new(name: "const",   regex: @"[01]");
+    public static readonly TypeTerminal Const     = new(name: "const",   regex: @"\b[01]\b");
     public static readonly TypeTerminal Comma     = new(name: ",",       regex: @",");
     public static readonly TypeTerminal Colon     = new(name: ":",       regex: @":");
     public static readonly TypeTerminal Logical   = new(name: "logical", regex: @"LOGICAL");

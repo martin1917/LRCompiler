@@ -44,6 +44,8 @@ public class TreeBuilder
         return listVariables;
     }
 
+    // <list_assignments> ::= <assignment> | <assignment><list_assignments>
+    // <list_operators> ::= <operator> | <operator><list_operators>
     private List<StatemantNode> GetAssignmentsAndOperators(TreeNode node)
     {
         List<StatemantNode> res = new();
@@ -95,7 +97,6 @@ public class TreeBuilder
         return res;
     }
 
-    // <description_calculations> ::= <list_actions>
     // <list_actions> ::= <list_assignments> | <list_assignments> <list_actions>
     // <list_actions> ::= <list_operators> | <list_operators> <list_actions>
     private ScopeNode GetStatement(TreeNode node)

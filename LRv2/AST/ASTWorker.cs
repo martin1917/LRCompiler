@@ -1,5 +1,6 @@
-﻿using LRv2.SyntaxAnalyzer.Nodes;
-using System.Collections.Generic;
+﻿using LRv2.LexicalAnalyzer;
+using LRv2.SyntaxAnalyzer.Nodes;
+using System.Text.RegularExpressions;
 
 namespace LRv2.AST;
 
@@ -93,17 +94,14 @@ public class ASTWorker
 
 	public void Proccess()
 	{
-        // объявление переменных
         ProccessVarNode(root.Vars);
 
-        // поиск ошибок (использование не существующих переменных)
         var errors = GetErrors(root.Body);
         if (errors.Any())
         {
             throw new Exception(string.Join('\n', errors));
         }
 
-        // основная работа
         ProccessScopeNode(root.Body);
     }
 
@@ -157,15 +155,29 @@ public class ASTWorker
 
         var readingValues = Console.ReadLine()?.Trim()
             .Split(" ")
-            .Select(v => v == "1")
             .ToList();
 
+        string error = string.Empty;
+        
         if (readingValues == null || idents.Count != readingValues.Count)
         {
-            throw new Exception($"Функции READ нужно передать значения для ВСЕХ переменных {string.Join(", ", idents)}");
+            error += $"- Функции READ нужно передать значения для переменных {string.Join(", ", idents)}\n";
         }
 
-        idents.Zip(readingValues).ToList()
+        if (readingValues != null)
+        {
+            if (readingValues.Any(v => !Regex.IsMatch(v, TypeTerminal.Const.Regex)))
+            {
+                error += "- Значением переменных могут быть только 0 или 1\n";
+            }
+        }
+
+        if (error != string.Empty)
+        {
+            throw new Exception(error);
+        }
+
+        idents.Zip(readingValues!.Select(v => v == "1")).ToList()
             .ForEach(pair => tableIdents[pair.First] = pair.Second);
     }
     
